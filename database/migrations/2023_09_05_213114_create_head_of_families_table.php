@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('head_of_families', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('census_id')->unsigned();
+            $table->foreign('census_id')->references('id')->on('censuses');
             $table->integer('number_of_family_card')->unique();
             $table->string('NIK')->unique();
             $table->string('address');
