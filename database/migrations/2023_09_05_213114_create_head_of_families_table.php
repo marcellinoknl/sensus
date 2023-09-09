@@ -15,22 +15,10 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('census_id')->unsigned();
             $table->foreign('census_id')->references('id')->on('censuses');
+            $table->bigInteger('village_id')->unsigned();
+            $table->foreign('village_id')->references('id')->on('villages');
             $table->integer('number_of_family_card')->unique();
-            $table->string('NIK')->unique();
-            $table->string('address');
-            $table->string('full_name');
-            $table->string('last_education');
-            $table->string('type_of_work');
-            $table->string('etnic');
-            $table->string('citizenship');
-            $table->integer('age');
-            $table->string('gender');
-            $table->string('religion');
-            $table->string('relationship_status_in_the_family');
-            $table->date('date_of_birth');
-            $table->string('place_of_birth');
-            $table->string('phone_number');
-            $table->string('marital_status');
+            $table->string('nama_keluarga');
             $table->timestamps();
         });
     }

@@ -17,10 +17,47 @@
   <!-- Plugin css for this page -->
   <link rel="stylesheet" href="{{ asset('vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
   <link rel="stylesheet" href="{{ asset('js/select.dataTables.min.css')}}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css')}}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" />
+    <!-- SweetAlert 2 CSS -->
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
+
+    <!-- SweetAlert 2 JavaScript -->
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+
 </head>
 <body>
+  <style>
+    /* Common button styles */
+    .button {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    /* Edit button style */
+    .edit-button {
+        background-color: #0d14d6;
+        color: #fff;
+    }
+
+    /* Delete button style */
+    .delete-button {
+        background-color: #DC3545;
+        color: #fff;
+    }
+
+    /* Add button */
+    .add-button {
+        background-color: #049e01;
+        color: #fff;
+    }
+</style>
