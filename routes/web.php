@@ -58,4 +58,24 @@ Route::get('/schedule/edit/{census}', [App\Http\Controllers\Pages\ScheduleContro
 Route::put('/schedule/update/{census}', [App\Http\Controllers\Pages\ScheduleController::class, 'update'])->name('schedule.update')->middleware('auth');
 Route::delete('/schedule/delete/{census}', [App\Http\Controllers\Pages\ScheduleController::class, 'destroy'])->name('schedule.destroy')->middleware('auth');
 
+//head family
+//head family route
+Route::get('/headfamily', [App\Http\Controllers\Pages\HeadFamilyController::class, 'index'])->name('headfamily')->middleware('auth');
+Route::get('/headfamily/add', [App\Http\Controllers\Pages\HeadFamilyController::class, 'add'])->name('headfamily.add')->middleware('auth');
+Route::post('/headfamily/store', [App\Http\Controllers\Pages\HeadFamilyController::class, 'store'])->name('headfamily.store')->middleware('auth');
+Route::get('/headfamily/edit/{headfamily}', [App\Http\Controllers\Pages\HeadFamilyController::class, 'edit'])->name('headfamily.edit')->middleware('auth');
+Route::put('/headfamily/update/{headfamily}', [App\Http\Controllers\Pages\HeadFamilyController::class, 'update'])->name('headfamily.update')->middleware('auth');
+Route::delete('/headfamily/delete/{headfamily}', [App\Http\Controllers\Pages\HeadFamilyController::class, 'destroy'])->name('headfamily.destroy')->middleware('auth');
+
+//family member
+//family member route
+Route::get('/familymember', [App\Http\Controllers\Pages\FamilyMemberController::class, 'index'])->name('familymember')->middleware('auth');
+Route::get('/familymember/add', [App\Http\Controllers\Pages\FamilyMemberController::class, 'add'])->name('familymember.add')->middleware('auth');
+Route::post('/familymember/store', [App\Http\Controllers\Pages\FamilyMemberController::class, 'store'])->name('familymember.store')->middleware('auth');
+Route::get('/familymember/edit/{familymember}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'edit'])->name('familymember.edit')->middleware('auth');
+Route::put('/familymember/update/{familymember}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'update'])->name('familymember.update')->middleware('auth');
+Route::delete('/familymember/delete/{familymember}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'destroy'])->name('familymember.destroy')->middleware('auth');
+
+
+
 

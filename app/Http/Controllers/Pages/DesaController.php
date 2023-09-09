@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Validator; // Import Validator class
 class DesaController extends Controller
 {
     
-'    public function index()
+    public function index()
     {
         $villages = village::all(); // Fetch all villages from the database
         
         return view('pages.desa.index', compact('villages'));
     }
-    '
+    
 
     public function add()
     {
