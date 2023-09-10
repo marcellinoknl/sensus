@@ -211,54 +211,162 @@
                                   <div class="col-lg-12 grid-margin stretch-card">
                                     <div class="card">
                                       <div class="card-body">
-                                        <h4 class="card-title">Tambah Nama Keluarga</h4>
+                                        <h4 class="card-title">Tambah Nama Anggota Keluarga</h4>
                                         <p class="card-description">
-                                          Data Master > Kelola Nama Keluarga > Tambah Nama Keluarga
+                                          Data Master > Kelola Anggota Keluarga > Tambah Nama Anggota Keluarga
                                         </p>
-                                        <form method="POST" action="{{ route('headfamily.store') }}" class="forms-sample">
+                                        <form method="POST" action="{{ route('familymember.store', ['head_of_family_id' => $headFamilyMembers->id]) }}" class="forms-sample">
                                             @csrf <!-- Add the CSRF token -->
                                             <div class="form-group row">
-                                                <label for="census_id" class="col-sm-3 col-form-label">Census Name</label>
+                                                <label for="head_of_family_id" class="col-sm-3 col-form-label">Head of Family</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" id="census_id" name="census_id">
-                                                        <option disabled selected value="">Select Census Name</option>
-                                                        @foreach ($censuses as $census)
-                                                            <option value="{{ $census->id }}">{{ $census->census_name }}</option>
+                                                    <select class="form-control" id="head_of_family_id" name="head_of_family_id">
+                                                        <option disabled selected value="">Select Head of Family</option>
+                                                        @foreach ($headFamilyMembers as $headFamilyMember)
+                                                            <option value="{{ $headFamilyMember->id }}">{{ $headFamilyMember->nama_keluarga }} - {{ $headFamilyMember->number_of_family_card }}</option>
                                                         @endforeach
                                                     </select>
-                                                    @error('census_id')
+                                                    @error('head_of_family_id')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="village_id" class="col-sm-3 col-form-label">Village Name</label>
+                                                <label for="NIK" class="col-sm-3 col-form-label">NIK</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" id="village_id" name="village_id">
-                                                        <option disabled selected value="">Select Village Name</option>
-                                                        @foreach ($villages as $village)
-                                                            <option value="{{ $village->id }}">{{ $village->village_name }}</option>
-                                                        @endforeach
+                                                    <input type="text" class="form-control" id="NIK" name="NIK" placeholder="NIK">
+                                                    @error('NIK')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="address" class="col-sm-3 col-form-label">Alamat</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="address" name="address" placeholder="Alamat">
+                                                    @error('address')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="full_name" class="col-sm-3 col-form-label">Nama Lengkap</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Nama Lengkap">
+                                                    @error('full_name')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="last_education" class="col-sm-3 col-form-label">Pendidikan Terakhir</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="last_education" name="last_education" placeholder="Pendidikan Terakhir">
+                                                    @error('last_education')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="type_of_work" class="col-sm-3 col-form-label">Jenis Pekerjaan</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="type_of_work" name="type_of_work" placeholder="Jenis Pekerjaan">
+                                                    @error('type_of_work')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="etnic" class="col-sm-3 col-form-label">Suku Etnis</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="etnic" name="etnic" placeholder="Suku Etnis">
+                                                    @error('etnic')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="citizenship" class="col-sm-3 col-form-label">Kewarganegaraan</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="citizenship" name="citizenship" placeholder="Kewarganegaraan">
+                                                    @error('citizenship')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="age" class="col-sm-3 col-form-label">Umur</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control" id="age" name="age" placeholder="Umur">
+                                                    @error('age')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="gender" class="col-sm-3 col-form-label">Jenis Kelamin</label>
+                                                <div class="col-sm-9">
+                                                    <select class="form-control" id="gender" name="gender">
+                                                        <option disabled selected value="">Select Jenis Kelamin</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Other">Other</option>
                                                     </select>
-                                                    @error('village_id')
+                                                    @error('gender')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="number_of_family_card" class="col-sm-3 col-form-label">Number of Family Card</label>
+                                                <label for="religion" class="col-sm-3 col-form-label">Agama</label>
                                                 <div class="col-sm-9">
-                                                    <input type="number" class="form-control" id="number_of_family_card" name="number_of_family_card" placeholder="Number of Family Card">
-                                                    @error('number_of_family_card')
+                                                    <input type="text" class="form-control" id="religion" name="religion" placeholder="Agama">
+                                                    @error('religion')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="nama_keluarga" class="col-sm-3 col-form-label">Nama Keluarga</label>
+                                                <label for="relationship_status_in_the_family" class="col-sm-3 col-form-label">Status Hubungan Dalam Keluarga</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="nama_keluarga" name="nama_keluarga" placeholder="Nama Keluarga">
-                                                    @error('nama_keluarga')
+                                                    <input type="text" class="form-control" id="relationship_status_in_the_family" name="relationship_status_in_the_family" placeholder="Status Hubungan Dalam Keluarga">
+                                                    @error('relationship_status_in_the_family')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="date_of_birth" class="col-sm-3 col-form-label">Tanggal Lahir</label>
+                                                <div class="col-sm-9">
+                                                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
+                                                    @error('date_of_birth')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="place_of_birth" class="col-sm-3 col-form-label">Tempat Lahir</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="place_of_birth" name="place_of_birth" placeholder="Tempat Lahir">
+                                                    @error('place_of_birth')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="phone_number" class="col-sm-3 col-form-label">Nomor Telepon</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Nomor Telepon">
+                                                    @error('phone_number')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="marital_status" class="col-sm-3 col-form-label">Status Pernikahan</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="marital_status" name="marital_status" placeholder="Status Pernikahan">
+                                                    @error('marital_status')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -267,12 +375,10 @@
                                             <button type="button" class="btn btn-danger" onclick="cancel()">Batal</button>
                                             <script>
                                                 function cancel() {
-                                                    window.location.href = "{{ route('headfamily') }}";
+                                                    window.location.href = "{{ route('familymember.index') }}";
                                                 }
                                             </script>
-                                        </form>
-                                        
-                                        
+                                        </form>                                        
                                       </div>
                                     </div>
                                   </div>

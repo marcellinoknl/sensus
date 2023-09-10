@@ -69,9 +69,9 @@ Route::delete('/headfamily/delete/{headfamily}', [App\Http\Controllers\Pages\Hea
 
 //family member
 //family member route
-Route::get('/familymember', [App\Http\Controllers\Pages\FamilyMemberController::class, 'index'])->name('familymember')->middleware('auth');
+Route::get('/familymember', [App\Http\Controllers\Pages\FamilyMemberController::class, 'index'])->name('familymember.index')->middleware('auth');
 Route::get('/familymember/add', [App\Http\Controllers\Pages\FamilyMemberController::class, 'add'])->name('familymember.add')->middleware('auth');
-Route::post('/familymember/store', [App\Http\Controllers\Pages\FamilyMemberController::class, 'store'])->name('familymember.store')->middleware('auth');
+Route::post('/familymember/store/{head_of_family_id}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'store'])->name('familymember.store')->middleware('auth');
 Route::get('/familymember/edit/{familymember}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'edit'])->name('familymember.edit')->middleware('auth');
 Route::put('/familymember/update/{familymember}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'update'])->name('familymember.update')->middleware('auth');
 Route::delete('/familymember/delete/{familymember}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'destroy'])->name('familymember.destroy')->middleware('auth');

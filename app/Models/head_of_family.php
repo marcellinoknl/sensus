@@ -12,6 +12,14 @@ class head_of_family extends Model
     protected $table = 'head_of_families';
     protected $primaryKey = 'id';
 
+    //fillable
+    protected $fillable = [
+        'census_id',
+        'village_id',
+        'number_of_family_card',
+        'nama_keluarga',
+    ];
+
     public function census()
     {
         return $this->belongsTo(census::class);

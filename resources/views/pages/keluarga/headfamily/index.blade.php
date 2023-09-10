@@ -220,16 +220,16 @@
                                   <div class="col-lg-12 grid-margin stretch-card">
                                     <div class="card">
                                       <div class="card-body">
-                                        <h4 class="card-title">Kelola Schedule</h4>
+                                        <h4 class="card-title">Kelola Nama Keluarga</h4>
                                         <p class="card-description">
-                                          Data Master > Kelola Schedule
+                                          Data Master > Kelola Nama Keluarga
                                         </p>
                                         <div class="align-items-start">
-                                          <button id="addDesaButton" class="button add-button"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Schedule</button>
+                                          <button id="addDesaButton" class="button add-button"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Nama Keluarga</button>
 
                                           <script>
                                               document.getElementById("addDesaButton").addEventListener("click", function() {
-                                                  window.location.href = "{{ route('schedule.add') }}";
+                                                  window.location.href = "{{ route('headfamily.add') }}";
                                               });
                                           </script>                                        
                                           </div>
@@ -244,10 +244,13 @@
                                                             Nama Sensus
                                                         </th>
                                                         <th>
-                                                            Jadwal Sensus
+                                                            Nama Desa
                                                         </th>
                                                         <th>
-                                                            Nama Desa
+                                                            NIK Keluarga
+                                                        </th>
+                                                        <th>
+                                                          Nama Keluarga
                                                         </th>
                                                         <th>
                                                             Aksi
@@ -255,28 +258,31 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                  @foreach ($schedules as $schedule)
+                                                  @foreach ($head_of_families as $head_of_family)
                                                       <tr>
                                                           <td class="py-1">
                                                               {{ $loop->iteration }}
                                                           </td>
                                                           <td>
-                                                              {{ $schedule->census_name }}
+                                                              {{ $head_of_family->census ? $head_of_family->census->census_name : 'N/A' }}
                                                           </td>
                                                           <td>
-                                                              {{ $schedule->schedule }}
+                                                              {{ $head_of_family->village ? $head_of_family->village->village_name : 'N/A' }}
                                                           </td>
                                                           <td>
-                                                            {{ $schedule->village ? $schedule->village->village_name : 'N/A' }}
+                                                            {{ $head_of_family->number_of_family_card }}
+                                                          </td>
+                                                          <td>
+                                                            {{ $head_of_family->nama_keluarga }}
                                                           </td>
                                                           <td>
                                                             <!-- Edit button -->
-                                                            <button class="button edit-button" onclick="window.location.href = '{{ route('schedule.edit', ['census' => $schedule->id]) }}'">
+                                                            <button class="button edit-button" onclick="window.location.href = '{{ route('headfamily.edit', ['headfamily' => $head_of_family->id]) }}'">
                                                               <i class="fas fa-edit"></i>
                                                             </button>
                                                         
                                                             <!-- Delete button (No confirmation) -->
-                                                            <form action="{{ route('schedule.destroy', $schedule->id) }}" method="POST">
+                                                            <form action="{{ route('headfamily.destroy', $head_of_family->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="button delete-button">

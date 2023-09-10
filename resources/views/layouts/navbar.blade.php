@@ -18,8 +18,8 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="/keloladesa">Kelola Desa</a></li>
                 <li class="nav-item"> <a class="nav-link" href="/schedule">Schedule Census</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Kelola Nama Keluarga</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Kelola Anggota Keluarga</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/headfamily">Kelola Nama Keluarga</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/familymember">Kelola Anggota Keluarga</a></li>
               </ul>
             </div>
           </li>
