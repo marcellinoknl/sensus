@@ -215,13 +215,13 @@
                                         <p class="card-description">
                                           Data Master > Kelola Anggota Keluarga > Tambah Nama Anggota Keluarga
                                         </p>
-                                        <form method="POST" action="{{ route('familymember.store', ['head_of_family_id' => $headFamilyMembers->id]) }}" class="forms-sample">
+                                        <form method="POST" action="{{ route('familymember.store')}}" class="forms-sample">
                                             @csrf <!-- Add the CSRF token -->
                                             <div class="form-group row">
-                                                <label for="head_of_family_id" class="col-sm-3 col-form-label">Head of Family</label>
-                                                <div class="col-sm-9">
+                                                <label for="head_of_family_id" class="col-sm-3 col-form-label">Nama Keluarga</label>
+                                                <div class="col-sm-5">
                                                     <select class="form-control" id="head_of_family_id" name="head_of_family_id">
-                                                        <option disabled selected value="">Select Head of Family</option>
+                                                        <option disabled selected value="">Pilih Nama Keluarga</option>
                                                         @foreach ($headFamilyMembers as $headFamilyMember)
                                                             <option value="{{ $headFamilyMember->id }}">{{ $headFamilyMember->nama_keluarga }} - {{ $headFamilyMember->number_of_family_card }}</option>
                                                         @endforeach
@@ -233,8 +233,8 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label for="NIK" class="col-sm-3 col-form-label">NIK</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="NIK" name="NIK" placeholder="NIK">
+                                                <div class="col-sm-5">
+                                                    <input type="number" class="form-control" id="NIK" name="NIK" placeholder="NIK">
                                                     @error('NIK')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
@@ -296,7 +296,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label for="age" class="col-sm-3 col-form-label">Umur</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-3">
                                                     <input type="number" class="form-control" id="age" name="age" placeholder="Umur">
                                                     @error('age')
                                                         <div class="text-danger">{{ $message }}</div>
@@ -305,9 +305,9 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label for="gender" class="col-sm-3 col-form-label">Jenis Kelamin</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-5">
                                                     <select class="form-control" id="gender" name="gender">
-                                                        <option disabled selected value="">Select Jenis Kelamin</option>
+                                                        <option disabled selected value="">Pilih Jenis Kelamin</option>
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
                                                         <option value="Other">Other</option>
@@ -337,7 +337,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label for="date_of_birth" class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-5">
                                                     <input type="date" class="form-control" id="date_of_birth" name="date_of_birth">
                                                     @error('date_of_birth')
                                                         <div class="text-danger">{{ $message }}</div>
@@ -363,14 +363,18 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="marital_status" class="col-sm-3 col-form-label">Status Pernikahan</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="marital_status" name="marital_status" placeholder="Status Pernikahan">
-                                                    @error('marital_status')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-                                            </div>
+                                              <label for="marital_status" class="col-sm-3 col-form-label">Status Pernikahan</label>
+                                              <div class="col-sm-5">
+                                                  <select class="form-control" id="marital_status" name="marital_status">
+                                                    <option disabled selected value="">Pilih Status Pernikahan</option>
+                                                      <option value="Sudah Menikah">Sudah Menikah</option>
+                                                      <option value="Belum Menikah">Belum Menikah</option>
+                                                  </select>
+                                                  @error('marital_status')
+                                                      <div class="text-danger">{{ $message }}</div>
+                                                  @enderror
+                                              </div>
+                                          </div>                                          
                                             <button type="submit" class="btn btn-success me-2">Tambahkan</button>
                                             <button type="button" class="btn btn-danger" onclick="cancel()">Batal</button>
                                             <script>
