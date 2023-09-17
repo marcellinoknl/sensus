@@ -76,6 +76,18 @@ Route::get('/familymember/edit/{familymember}', [App\Http\Controllers\Pages\Fami
 Route::put('/familymember/update/{familymember}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'update'])->name('familymember.update')->middleware('auth');
 Route::delete('/familymember/delete/{familymember}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'destroy'])->name('familymember.destroy')->middleware('auth');
 
+//pertanyaan
+//pertanyaan route
+Route::get('/pertanyaan', [App\Http\Controllers\Pages\PertanyaanController::class, 'index'])->name('pertanyaan.index')->middleware('auth');
+Route::get('/pertanyaan/add', [App\Http\Controllers\Pages\PertanyaanController::class, 'add'])->name('pertanyaan.add')->middleware('auth');
+Route::post('/pertanyaan/store', [App\Http\Controllers\Pages\PertanyaanController::class, 'store'])->name('pertanyaan.store')->middleware('auth');
+Route::get('/pertanyaan/edit/{pertanyaan}', [App\Http\Controllers\Pages\PertanyaanController::class, 'edit'])->name('pertanyaan.edit')->middleware('auth');
+Route::put('/pertanyaan/update/{pertanyaan}', [App\Http\Controllers\Pages\PertanyaanController::class, 'update'])->name('pertanyaan.update')->middleware('auth');
+Route::delete('/pertanyaan/delete/{pertanyaan}', [App\Http\Controllers\Pages\PertanyaanController::class, 'destroy'])->name('pertanyaan.destroy')->middleware('auth');
 
-
+//kuesioner per head of family
+//kuesioner per head of family route
+//route to kuesioner use id head of family
+Route::get('/kuesioner/{headfamily}', [App\Http\Controllers\Pages\PertanyaanController::class, 'kuesioner'])->name('kuesioner.index')->middleware('auth');
+Route::post('/store-answers', [App\Http\Controllers\Pages\PertanyaanController::class, 'storeAnswer'])->name('store.answers');
 

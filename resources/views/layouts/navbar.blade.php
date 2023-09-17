@@ -20,33 +20,15 @@
                 <li class="nav-item"> <a class="nav-link" href="/schedule">Schedule Census</a></li>
                 <li class="nav-item"> <a class="nav-link" href="/headfamily">Kelola Nama Keluarga</a></li>
                 <li class="nav-item"> <a class="nav-link" href="/familymember">Kelola Anggota Keluarga</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/pertanyaan">Kelola Pertanyaan Sensus</a></li>
               </ul>
             </div>
-          </li>
-          <li class="nav-item nav-category">Forms and Datas</li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-              <i class="menu-icon mdi mdi-card-text-outline"></i>
-              <span class="menu-title">Form Sensus</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="form-elements">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-              <i class="menu-icon mdi mdi-chart-line"></i>
-              <span class="menu-title">Charts</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="charts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
-              </ul>
-            </div>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/kelolauser">
+                <i class="menu-icon mdi mdi-account-multiple"></i>
+                <span class="menu-title">Kelola User</span>
+              </a>
+            </li>          
+            </li>
         </ul>
       </nav>

@@ -237,7 +237,7 @@
                                                 <div class="form-group row">
                                                     <label for="NIK" class="col-sm-3 col-form-label">NIK</label>
                                                     <div class="col-sm-5">
-                                                        <input type="number" class="form-control" id="NIK" name="NIK" placeholder="NIK" value="{{ $familyMember->NIK }}">
+                                                        <input type="text" class="form-control" id="NIK" name="NIK" placeholder="NIK" value="{{ $familyMember->NIK }}">
                                                         @error('NIK')
                                                         <div class="text-danger">{{ $message }}</div>
                                                         @enderror
@@ -391,7 +391,7 @@
                                                     </div>
                                                 </div>                                          
                                                 
-                                                <button type="submit" class="btn btn-success me-2">Update</button>
+                                                <button type="submit" class="btn btn-success me-2">Ubah</button>
                                                 <button type="button" class="btn btn-danger" onclick="cancel()">Batal</button>
                                                 <script>
                                                     function cancel() {

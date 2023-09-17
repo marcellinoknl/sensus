@@ -269,8 +269,8 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-success me-2">Update</button>
-                                                <button type="button" class="btn btn-danger" onclick="cancel()">Cancel</button>
+                                                <button type="submit" class="btn btn-success me-2">Ubah</button>
+                                                <button type="button" class="btn btn-danger" onclick="cancel()">Batal</button>
                                                 <script>
                                                     function cancel() {
                                                         window.location.href = "{{ route('headfamily') }}";

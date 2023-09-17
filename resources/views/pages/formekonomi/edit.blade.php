@@ -210,61 +210,100 @@
                                 <div class="d-sm-flex justify-content-between align-items-start">
                                   <div class="col-lg-12 grid-margin stretch-card">
                                     <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Edit Schedule Sensus</h4>
-                                            <p class="card-description">
-                                                Data Master > Kelola Schedule > Edit Schedule
-                                            </p>
-                                            <form method="POST" action="{{ route('schedule.update', $scheduleData->id) }}" class="forms-sample">
-                                                @csrf
-                                                @method('PUT')
-                                        
-                                                <div class="form-group row">
-                                                    <label for="census_name" class="col-sm-3 col-form-label">Census Name</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="census_name" name="census_name" value="{{ $scheduleData->census_name }}" placeholder="Census Name">
-                                                        @error('census_name')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
+                                      <div class="card-body">
+                                        <h4 class="card-title">Edit Pertanyaan Sensus</h4>
+                                        <p class="card-description">
+                                          Data Master > Kelola Pertanyaan > Edit Pertanyaan Sensus
+                                        </p>
+                                        <form method="POST" action="{{ route('pertanyaan.update', ['pertanyaan' => $question->id]) }}" class="forms-sample">
+                                          @csrf <!-- Add the CSRF token -->
+                                          @method('PUT') <!-- Use the PUT method for updating -->
+                                          <div class="form-group row">
+                                              <label for="question" class="col-sm-3 col-form-label">Pertanyaan Sensus</label>
+                                              <div class="col-sm-9">
+                                                  <input type="text" class="form-control" id="question" name="question" value="{{ $question->question }}" placeholder="Masukkan Pertanyaan">
+                                                  @error('question')
+                                                      <div class="text-danger">{{ $message }}</div>
+                                                  @enderror
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                              <label for="input_type" class="col-sm-3 col-form-label">Tipe Input</label>
+                                              <div class="col-sm-9">
+                                                  <select class="form-control" id="input_type" name="input_type">
+                                                      <option value="isian" {{ $question->input_type === 'isian' ? 'selected' : '' }}>Isian</option>
+                                                      <option value="dropdown" {{ $question->input_type === 'dropdown' ? 'selected' : '' }}>Dropdown</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                            <label for="options" class="col-sm-3 col-form-label">Opsi</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="options" name="options[]" placeholder="Masukkan Opsi">
+                                                <div id="options-container">
+                                                    <!-- Render existing options here -->
+                                                    @if ($question->input_type === 'dropdown')
+                                                        @foreach (json_decode($question->options) as $option)
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" name="options[]" value="{{ $option }}" placeholder="Masukkan Opsi">
+                                                                <button type="button" class="btn btn-danger" onclick="removeOption(this)">Hapus Opsi</button>
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
                                                 </div>
-                                        
-                                                <div class="form-group row">
-                                                    <label for="schedule" class="col-sm-3 col-form-label">Schedule</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="date" class="form-control" id="schedule" name="schedule" value="{{ convertIndonesianDateToCarbon($scheduleData->schedule)->format('Y-m-d') }}" style="width: 190px;">
-                                                        @error('schedule')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                        
-                                                <div class="form-group row">
-                                                    <label for="village_id" class="col-sm-3 col-form-label">Desa (Village)</label>
-                                                    <div class="col-sm-9">
-                                                        <select class="form-control" id="village_id" name="village_id">
-                                                            <option disabled value="">Pilih Desa</option>
-                                                            @foreach ($villages as $village)
-                                                                    <option value="{{ $village->id }}" {{ $village->id == $scheduleData->village_id ? 'selected' : '' }}>{{ $village->village_name }}</option>
-                                                                @endforeach
+                                                <button type="button" class="btn btn-primary mt-2" id="add-option">Tambahkan Opsi</button>
+                                            </div>
+                                        </div>                                        
+                                          <button type="submit" class="btn btn-success me-2">Ubah</button>
+                                          <button type="button" class="btn btn-danger" onclick="cancel()">Batal</button>
+                                          <script>
+                                              document.addEventListener('DOMContentLoaded', function() {
+                                              const addOptionButton = document.getElementById('add-option');
+                                              const optionsContainer = document.getElementById('options-container');
+                                              const inputTypeSelect = document.getElementById('input_type');
 
-                                                        </select>
-                                                        @error('village_id')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                        
-                                                <button type="submit" class="btn btn-success me-2">Ubah</button>
-                                                <button type="button" class="btn btn-danger" onclick="cancel()">Batal</button>
-                                                <script>
-                                                    function cancel() {
-                                                        window.location.href = "{{ route('schedule') }}";
-                                                    }
-                                                </script>
-                                            </form>
-                                        </div>
-                                        
+                                              // Handle initial state based on the input type
+                                              toggleOptionsVisibility(inputTypeSelect.value);
+
+                                              addOptionButton.addEventListener('click', function() {
+                                                  const newOptionInput = document.createElement('div');
+                                                  newOptionInput.className = 'input-group';
+                                                  newOptionInput.innerHTML = `
+                                                      <input type="text" class="form-control" name="options[]" placeholder="Masukkan Opsi">
+                                                      <button type="button" class="btn btn-danger" onclick="removeOption(this)">Hapus Opsi</button>
+                                                  `;
+
+                                                  optionsContainer.appendChild(newOptionInput);
+                                              });
+
+                                              inputTypeSelect.addEventListener('change', function() {
+                                                  toggleOptionsVisibility(this.value);
+                                              });
+                                          });
+
+                                          function toggleOptionsVisibility(inputType) {
+                                              const optionsContainer = document.getElementById('options-container');
+
+                                              if (inputType === 'dropdown') {
+                                                  optionsContainer.style.display = 'block';
+                                              } else {
+                                                  optionsContainer.style.display = 'none';
+                                              }
+                                          }
+
+                                          function removeOption(button) {
+                                              const optionInput = button.previousElementSibling;
+                                              const optionInputGroup = button.parentElement;
+                                              optionInputGroup.remove();
+                                          }
+
+                                          function cancel() {
+                                              window.location.href = "{{ route('pertanyaan.index') }}";
+                                          }
+
+                                          </script>
+                                      </form>                                      
+                                      </div>
                                     </div>
                                   </div>
                                 </div>

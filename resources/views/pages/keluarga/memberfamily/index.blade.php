@@ -232,6 +232,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
+                                                            <th>Nama Keluarga</th>
                                                             <th>NIK</th>
                                                             <th>Alamat</th>
                                                             <th>Nama Lengkap</th>
@@ -254,6 +255,7 @@
                                                         @foreach ($familyMembers as $familyMember)
                                                         <tr>
                                                             <td class="py-1">{{ $loop->iteration }}</td>
+                                                            <td>{{$familyMember->head_of_family->nama_keluarga}}</td>
                                                             <td>{{ $familyMember->NIK }}</td>
                                                             <td>{{ $familyMember->address }}</td>
                                                             <td>{{ $familyMember->full_name }}</td>
@@ -269,11 +271,13 @@
                                                             <td>{{ $familyMember->place_of_birth }}</td>
                                                             <td>{{ $familyMember->phone_number }}</td>
                                                             <td>{{ $familyMember->marital_status }}</td>
-                                                            <td>
-                                                                <!-- Edit button -->
-                                                                <a href="{{ route('familymember.edit', ['familymember' => $familyMember->id]) }}" class="button edit-button">
+                                                            <td style="display: flex;">
+                                                              <!-- Edit button -->
+                                                              <form action="{{ route('familymember.edit', ['familymember' => $familyMember->id]) }}" method="get" style="display: inline-block;">
+                                                                <button type="submit" class="button edit-button">
                                                                     <i class="fas fa-edit"></i>
-                                                                </a>
+                                                                </button>
+                                                            </form>                                                            
                                         
                                                                 <!-- Delete button (No confirmation) -->
                                                                 <form action="{{ route('familymember.destroy', ['familymember' => $familyMember->id]) }}" method="POST">

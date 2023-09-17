@@ -29,7 +29,7 @@ class FamilyMemberController extends Controller
         // Validate the incoming request data
         $request->validate([
             'head_of_family_id' => 'required|integer', // Assuming it's an integer, adjust as needed
-            'NIK' => 'required|integer',
+            'NIK' => 'required|string|max:25',
             'address' => 'required|string|max:255',
             'full_name' => 'required|string|max:255',
             'last_education' => 'required|string|max:255',
@@ -90,7 +90,7 @@ class FamilyMemberController extends Controller
 {
     $request->validate([
         'head_of_family_id' => 'required|integer', // Assuming it's an integer, adjust as needed
-        'NIK' => 'required|integer',
+        'NIK' => 'required|string|max:25',
         'address' => 'required|string|max:255',
         'full_name' => 'required|string|max:255',
         'last_education' => 'required|string|max:255',

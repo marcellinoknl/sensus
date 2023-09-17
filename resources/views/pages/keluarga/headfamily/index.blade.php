@@ -252,6 +252,7 @@
                                                         <th>
                                                           Nama Keluarga
                                                         </th>
+                                                        <th>Kuesioner</th>
                                                         <th>
                                                             Aksi
                                                         </th>
@@ -276,6 +277,16 @@
                                                             {{ $head_of_family->nama_keluarga }}
                                                           </td>
                                                           <td>
+                                                            @if($head_of_family->status_sensus == 0)
+                                                                <a href="{{ route('kuesioner.index', ['headfamily' => $head_of_family->id]) }}" class="button census-button btn-success">
+                                                                    Isi census
+                                                                </a>
+                                                            @else
+                                                                <span>Sensus telah di isi. <a href=""> lihat</a></span>
+                                                            @endif
+                                                        </td>
+                                                        
+                                                          <td style="display: flex;">
                                                             <!-- Edit button -->
                                                             <button class="button edit-button" onclick="window.location.href = '{{ route('headfamily.edit', ['headfamily' => $head_of_family->id]) }}'">
                                                               <i class="fas fa-edit"></i>

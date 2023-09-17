@@ -237,8 +237,8 @@
                                                 </div>
                                             </div>
                                             <input type="hidden" name="village_id" value="{{ $villageData->id }}"> <!-- Add a hidden input for the village ID -->
-                                            <button type="submit" class="btn btn-success me-2">Update</button> <!-- Change the button text to "Update" -->
-                                            <button type="button" class="btn btn-danger" onclick="cancel()">Cancel</button>
+                                            <button type="submit" class="btn btn-success me-2">Ubah</button> <!-- Change the button text to "Update" -->
+                                            <button type="button" class="btn btn-danger" onclick="cancel()">Batal</button>
                                             <script>
                                                 function cancel() {
                                                     window.location.href = "{{ route('desa') }}";

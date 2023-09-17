@@ -269,7 +269,7 @@
                                                           <td>
                                                               {{ $village->created_at->format('d F Y') }}
                                                           </td>
-                                                          <td>
+                                                          <td style="display: flex;">
                                                             <!-- Edit button -->
                                                             <button class="button edit-button" onclick="window.location.href = '{{ route('villages.edit', ['village' => $village->id]) }}'">
                                                                 <i class="fas fa-edit"></i>

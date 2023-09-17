@@ -269,7 +269,7 @@
                                                           <td>
                                                             {{ $schedule->village ? $schedule->village->village_name : 'N/A' }}
                                                           </td>
-                                                          <td>
+                                                          <td style="display: flex;">
                                                             <!-- Edit button -->
                                                             <button class="button edit-button" onclick="window.location.href = '{{ route('schedule.edit', ['census' => $schedule->id]) }}'">
                                                               <i class="fas fa-edit"></i>

@@ -13,10 +13,20 @@
               <form class="pt-3" action="{{ route('login') }}" method="post">
                 @csrf
                 <div class="form-group">
-                    <input type="email" name="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Alamat Email">
+                    <input type="email" name="email" class="form-control form-control-lg @error('email') is-invalid @enderror" id="exampleInputEmail1" placeholder="Alamat Email">
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Kata Sandi">
+                    <input type="password" name="password" class="form-control form-control-lg @error('password') is-invalid @enderror" id="exampleInputPassword1" placeholder="Kata Sandi">
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="mt-3">
                     <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
@@ -28,10 +38,8 @@
                             Ingat Saya
                         </label>
                     </div>
-                    <a href="#" class="auth-link text-black">Lupa Password?</a>
                 </div>
             </form>
-            
             </div>
           </div>
         </div>

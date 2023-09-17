@@ -1,5 +1,4 @@
 @include('layouts.header')
-@include('_alerts')
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
@@ -193,9 +192,19 @@
       </div>
       <!-- partial -->
       @include('layouts.navbar')
+      <script>
+        // Check if a success message is present in the session
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+            });
+        @endif
+    </script> 
       <!-- partial -->
       <div class="main-panel">
-        <div class="content-wrapper">
+        <div class="content-wrapper">       
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
@@ -211,58 +220,49 @@
                                   <div class="col-lg-12 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title">Edit Schedule Sensus</h4>
-                                            <p class="card-description">
-                                                Data Master > Kelola Schedule > Edit Schedule
-                                            </p>
-                                            <form method="POST" action="{{ route('schedule.update', $scheduleData->id) }}" class="forms-sample">
-                                                @csrf
-                                                @method('PUT')
-                                        
-                                                <div class="form-group row">
-                                                    <label for="census_name" class="col-sm-3 col-form-label">Census Name</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="census_name" name="census_name" value="{{ $scheduleData->census_name }}" placeholder="Census Name">
-                                                        @error('census_name')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                        
-                                                <div class="form-group row">
-                                                    <label for="schedule" class="col-sm-3 col-form-label">Schedule</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="date" class="form-control" id="schedule" name="schedule" value="{{ convertIndonesianDateToCarbon($scheduleData->schedule)->format('Y-m-d') }}" style="width: 190px;">
-                                                        @error('schedule')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                        
-                                                <div class="form-group row">
-                                                    <label for="village_id" class="col-sm-3 col-form-label">Desa (Village)</label>
-                                                    <div class="col-sm-9">
-                                                        <select class="form-control" id="village_id" name="village_id">
-                                                            <option disabled value="">Pilih Desa</option>
-                                                            @foreach ($villages as $village)
-                                                                    <option value="{{ $village->id }}" {{ $village->id == $scheduleData->village_id ? 'selected' : '' }}>{{ $village->village_name }}</option>
-                                                                @endforeach
-
-                                                        </select>
-                                                        @error('village_id')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                        
-                                                <button type="submit" class="btn btn-success me-2">Ubah</button>
-                                                <button type="button" class="btn btn-danger" onclick="cancel()">Batal</button>
-                                                <script>
-                                                    function cancel() {
-                                                        window.location.href = "{{ route('schedule') }}";
-                                                    }
-                                                </script>
-                                            </form>
+                                            <h4 class="card-title">Kelola Pertanyaan Sensus</h4>
+                                            <p class="card-description">Data Master > Kelola Pertanyaan Sensus</p>
+                                            <div class="align-items-start">
+                                                <button type="button" class="button add-button" onclick="window.location.href = '{{ route('pertanyaan.add') }}'">
+                                                    <i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Pertanyaan
+                                                </button>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Pertanyaan</th>
+                                                            <th>Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($questions as $question)
+                                                        <tr>
+                                                            <td class="py-1">{{ $loop->iteration }}</td>
+                                                            <td>{{ $question->question }}</td>
+                                                            <td style="display: flex;">
+                                                              <!-- Edit button -->
+                                                              <form action="{{ route('pertanyaan.edit', ['pertanyaan' => $question->id]) }}" method="get">
+                                                                  <button type="submit" class="button edit-button">
+                                                                      <i class="fas fa-edit"></i>
+                                                                  </button>
+                                                              </form>                                                              
+                                                          
+                                                              <!-- Delete button (No confirmation) -->
+                                                              <form action="{{ route('pertanyaan.destroy', ['pertanyaan' => $question->id]) }}" method="POST">
+                                                                  @csrf
+                                                                  @method('DELETE')
+                                                                  <button type="submit" class="button delete-button">
+                                                                      <i class="fas fa-trash-alt"></i>
+                                                                  </button>
+                                                              </form>
+                                                          </td>                                                          
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                         
                                     </div>

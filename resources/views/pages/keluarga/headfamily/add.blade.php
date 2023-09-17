@@ -246,9 +246,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="number_of_family_card" class="col-sm-3 col-form-label">Number of Family Card</label>
+                                                <label for="number_of_family_card" class="col-sm-3 col-form-label">NIK KK</label>
                                                 <div class="col-sm-9">
-                                                    <input type="number" class="form-control" id="number_of_family_card" name="number_of_family_card" placeholder="Number of Family Card">
+                                                    <input type="text" class="form-control" id="number_of_family_card" name="number_of_family_card" placeholder="Number of Family Card">
                                                     @error('number_of_family_card')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror

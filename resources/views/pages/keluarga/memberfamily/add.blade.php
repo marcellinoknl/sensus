@@ -234,7 +234,7 @@
                                             <div class="form-group row">
                                                 <label for="NIK" class="col-sm-3 col-form-label">NIK</label>
                                                 <div class="col-sm-5">
-                                                    <input type="number" class="form-control" id="NIK" name="NIK" placeholder="NIK">
+                                                    <input type="text" class="form-control" id="NIK" name="NIK" placeholder="NIK">
                                                     @error('NIK')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror

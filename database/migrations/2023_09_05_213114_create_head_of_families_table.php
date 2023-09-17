@@ -17,8 +17,10 @@ return new class extends Migration
             $table->foreign('census_id')->references('id')->on('censuses');
             $table->bigInteger('village_id')->unsigned();
             $table->foreign('village_id')->references('id')->on('villages');
-            $table->integer('number_of_family_card')->unique();
+            $table->string('number_of_family_card')->unique();
             $table->string('nama_keluarga');
+            //status sensus
+            $table->boolean('status_sensus')->default(0);
             $table->timestamps();
         });
     }

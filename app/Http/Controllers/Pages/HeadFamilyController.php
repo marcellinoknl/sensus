@@ -42,7 +42,7 @@ class HeadFamilyController extends Controller
         $request->validate([
             'census_id' => 'required',
             'village_id' => 'required',
-            'number_of_family_card' => 'required',
+            'number_of_family_card' => 'required|string|unique:head_of_families,number_of_family_card',
             'nama_keluarga' => 'required',
         ]);
 
@@ -65,7 +65,7 @@ class HeadFamilyController extends Controller
         $request->validate([
             'census_id' => 'required',
             'village_id' => 'required',
-            'number_of_family_card' => 'required|numeric', // Ensure it's numeric
+            'number_of_family_card' => 'required|string|unique:head_of_families,number_of_family_card',
             'nama_keluarga' => 'required',
         ]);
     
