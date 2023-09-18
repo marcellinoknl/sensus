@@ -35,4 +35,10 @@ class head_of_family extends Model
         return $this->hasMany(member_of_family::class);
     }
 
+    public function question_headfamily()
+    {
+        return $this->belongsToMany('App\Models\question', 'question_headfamilies', 'head_of_family_id', 'question_id')
+            ->using('App\Models\question_headfamily')
+            ->withPivot('answer');
+    }
 }

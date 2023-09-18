@@ -91,3 +91,6 @@ Route::delete('/pertanyaan/delete/{pertanyaan}', [App\Http\Controllers\Pages\Per
 Route::get('/kuesioner/{headfamily}', [App\Http\Controllers\Pages\PertanyaanController::class, 'kuesioner'])->name('kuesioner.index')->middleware('auth');
 Route::post('/store-answers', [App\Http\Controllers\Pages\PertanyaanController::class, 'storeAnswer'])->name('store.answers');
 
+//route detail kuesioner
+Route::get('/sensus/detail/{headfamily}', [App\Http\Controllers\Pages\HeadFamilyController::class, 'detail'])->name('kuesioner.detail')->middleware('auth');
+

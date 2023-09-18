@@ -1,4 +1,5 @@
 @include('layouts.header')
+@include('_alerts')
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
@@ -192,19 +193,9 @@
       </div>
       <!-- partial -->
       @include('layouts.navbar')
-      <script>
-        // Check if a success message is present in the session
-        @if (session('success'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: '{{ session('success') }}',
-            });
-        @endif
-    </script> 
       <!-- partial -->
       <div class="main-panel">
-        <div class="content-wrapper">       
+        <div class="content-wrapper">
           <div class="row">
             <div class="col-sm-12">
               <div class="home-tab">
@@ -217,102 +208,62 @@
                             <div class="card card-rounded">
                               <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-start">
-                                  <div class="col-lg-12 grid-margin stretch-card">
-                                    <div class="card">
-                                      <div class="card-body">
-                                        <h4 class="card-title">Kelola Nama Keluarga</h4>
-                                        <p class="card-description">
-                                          Data Master > Kelola Nama Keluarga
-                                        </p>
-                                        <div class="align-items-start">
-                                          <button id="addDesaButton" class="button add-button"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Nama Keluarga</button>
-
-                                          <script>
-                                              document.getElementById("addDesaButton").addEventListener("click", function() {
-                                                  window.location.href = "{{ route('headfamily.add') }}";
-                                              });
-                                          </script>                                        
-                                          </div>
-                                          <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            No
-                                                        </th>
-                                                        <th>
-                                                            Nama Sensus
-                                                        </th>
-                                                        <th>
-                                                            Nama Desa
-                                                        </th>
-                                                        <th>
-                                                            NIK Keluarga
-                                                        </th>
-                                                        <th>
-                                                          Nama Keluarga
-                                                        </th>
-                                                        <th>Kuesioner</th>
-                                                        <th>
-                                                            Aksi
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                  @foreach ($head_of_families as $head_of_family)
-                                                      <tr>
-                                                          <td class="py-1">
-                                                              {{ $loop->iteration }}
-                                                          </td>
-                                                          <td>
-                                                              {{ $head_of_family->census ? $head_of_family->census->census_name : 'N/A' }}
-                                                          </td>
-                                                          <td>
-                                                              {{ $head_of_family->village ? $head_of_family->village->village_name : 'N/A' }}
-                                                          </td>
-                                                          <td>
-                                                            {{ $head_of_family->number_of_family_card }}
-                                                          </td>
-                                                          <td>
-                                                            {{ $head_of_family->nama_keluarga }}
-                                                          </td>
-                                                          <td>
-                                                            @if($head_of_family->status_sensus == 0)
-                                                                <a href="{{ route('kuesioner.index', ['headfamily' => $head_of_family->id]) }}" class="button census-button btn-success">
-                                                                    Isi census
-                                                                </a>
-                                                            @else
-                                                            <span>Sensus telah di isi. <a href="{{ route('kuesioner.detail', ['headfamily' => $head_of_family->id]) }}">lihat</a></span>
-                                                            @endif
-                                                        </td>
-                                                        
-                                                          <td style="display: flex;">
-                                                            <!-- Edit button -->
-                                                            <button class="button edit-button" onclick="window.location.href = '{{ route('headfamily.edit', ['headfamily' => $head_of_family->id]) }}'">
-                                                              <i class="fas fa-edit"></i>
-                                                            </button>
-                                                        
-                                                            <!-- Delete button (No confirmation) -->
-                                                            <form action="{{ route('headfamily.destroy', $head_of_family->id) }}" method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="button delete-button">
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                        
-                                                      </tr>
-                                                  @endforeach
-                                              </tbody>
-                                              
-                                            </table>
-                                        </div>                                        
-                                      </div>
+                                    <div class="col-lg-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">Lihat Detail Sensus Keluarga {{ $head_of_family->nama_keluarga }}</h4>
+                                                <p class="card-description">Data Master > Lihat Detail Sensus</p>
+                                                <div class="row">
+                                                    <!-- Column for Head of Family and Related Data -->
+                                                    <div class="col-md-6">
+                                                        <!-- Access head_of_family attributes -->
+                                                        <p><strong>NIK Keluarga:</strong> {{ $head_of_family->number_of_family_card }}</p>
+                                                        <p><strong>Nama Keluarga:</strong> {{ $head_of_family->nama_keluarga }}</p>
+                                        
+                                                        <!-- Access related census data -->
+                                                        <p><strong>1. Nama Sensus:</strong> {{ $head_of_family->census->census_name }}</p>
+                                                        <p><strong>2. Jadwal Pengadaan:</strong> {{ $head_of_family->census->schedule }}</p>
+                                        
+                                                        <!-- Access related village data -->
+                                                        <p><strong>3. Nama Desa:</strong> {{ $head_of_family->village->village_name }}</p>
+                                                        <p><strong>4. Alamat Desa:</strong> {{ $head_of_family->village->address }}</p>
+                                        
+                                                        <!-- Check if there are family members -->
+                                                        @if ($head_of_family->member_of_family->isEmpty())
+                                                            <p style="color: red; font-weight: bold">Anggota Keluarga Belum ditambahkan. <br> tambahkan <a href="/familymember">disini</a></p>
+                                                        @else
+                                                            <!-- Loop through family members -->
+                                                            @foreach ($head_of_family->member_of_family as $key => $family_member)
+                                                                <p><strong>{{ $key + 5 }}. Anggota Keluarga</strong></p>
+                                                                <p><strong>Nama Anggota Keluarga:</strong> {{ $family_member->full_name }}</p>
+                                                                <p><strong>NIK:</strong> {{ $family_member->NIK }}</p>
+                                                                <p><strong>Umur:</strong> {{ $family_member->age }}</p>
+                                                                <p><strong>Status dalam Keluarga:</strong> {{ $family_member->relationship_status_in_the_family }}</p>
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
+                                                    
+                                                    <!-- Column for Sensus Questions and Responses -->
+                                                    <div class="col-md-6">
+                                                        <!-- Loop to display questions and answers -->
+                                                        @if(count($questions_and_answers) > 0)
+                                                            <div style="font-weight: bold; color:red">Respon Pertanyaan Sensus :</div> 
+                                                            @foreach($questions_and_answers as $qa)
+                                                                <p><strong>Pertanyaan {{ $loop->iteration }}:</strong> {{ $qa->question }}</p>
+                                                                <p><strong>Jawaban {{ $loop->iteration }}:</strong> {{ $qa->answer }}</p>
+                                                            @endforeach
+                                                        @else
+                                                            <!-- Message to display if the head of the family has not filled out any questions -->
+                                                            <p><strong>Keluarga Ini belum mengisi Sensus.</strong></p>
+                                                        @endif
+                                                    </div>
+                                                </div> <!-- End of Row -->
+                                            </div>
+                                        </div>
+                                        
                                     </div>
-                                  </div>
                                 </div>
-                              </div>
+                              </div>                            
                             </div>
                           </div>
                         </div>

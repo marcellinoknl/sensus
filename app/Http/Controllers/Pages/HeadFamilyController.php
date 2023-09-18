@@ -7,6 +7,7 @@ use App\Models\census;
 use App\Models\head_of_family;
 use App\Models\village;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HeadFamilyController extends Controller
 {
@@ -99,6 +100,27 @@ class HeadFamilyController extends Controller
         return redirect()->route('headfamily')->with('success', 'Record deleted successfully.');
     }
     
+    //make detail function
+    public function detail($id)    {
+        // Retrieve the head of family without related data
+        $head_of_family = head_of_family::findOrFail($id);
 
+        // Retrieve the questions and answers related to this head_of_family
+        $questions_and_answers = DB::table('question_headfamilies')
+                                    ->where('question_headfamilies.head_of_family_id', $id)
+                                    ->join('questions', 'question_headfamilies.question_id', '=', 'questions.id')
+                                    ->select('questions.question', 'question_headfamilies.answer')
+                                    ->get();
+
+        // Check if family members are loaded
+        if ($head_of_family->relationLoaded('member_of_family')) {
+            // The family members relationship is loaded
+        } else {
+            // The family members relationship is not loaded
+        }
+
+        return view('pages.kuesioner.detail', compact('head_of_family', 'questions_and_answers'));
+        }
+     
     
 }

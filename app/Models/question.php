@@ -21,6 +21,11 @@ class question extends Model
         return $this->hasMany(question_head_of_family::class);
     }
 
-
-
+    public function head_of_families()
+    {
+        return $this->belongsToMany('App\Models\head_of_family', 'question_headfamilies', 'question_id', 'head_of_family_id')
+            ->using('App\Models\question_headfamily')
+            ->withPivot('answer');
+    }
+    
 }
