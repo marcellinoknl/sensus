@@ -22,13 +22,7 @@
                 <li class="nav-item"> <a class="nav-link" href="/familymember">Kelola Anggota Keluarga</a></li>
                 <li class="nav-item"> <a class="nav-link" href="/pertanyaan">Kelola Pertanyaan Sensus</a></li>
               </ul>
-            </div>
-            <li class="nav-item">
-              <a class="nav-link" href="/kelolauser">
-                <i class="menu-icon mdi mdi-account-multiple"></i>
-                <span class="menu-title">Kelola User</span>
-              </a>
-            </li>          
+            </div>         
             </li>
         </ul>
       </nav>
