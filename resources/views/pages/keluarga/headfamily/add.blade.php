@@ -77,6 +77,26 @@
                                                     @enderror
                                                 </div>
                                             </div>
+                                            <div class="form-group row">
+                                              <label for="pendapatan" class="col-sm-3 col-form-label">Pendapatan</label>
+                                              <div class="col-sm-9">
+                                                  <input type="number" class="form-control" id="pendapatan" name="pendapatan" placeholder="Pendapatan">
+                                                  @error('pendapatan')
+                                                      <div class="text-danger">{{ $message }}</div>
+                                                  @enderror
+                                              </div>
+                                          </div>
+                                          
+                                          <div class="form-group row">
+                                              <label for="pengeluaran" class="col-sm-3 col-form-label">Pengeluaran</label>
+                                              <div class="col-sm-9">
+                                                  <input type="number" class="form-control" id="pengeluaran" name="pengeluaran" placeholder="Pengeluaran">
+                                                  @error('pengeluaran')
+                                                      <div class="text-danger">{{ $message }}</div>
+                                                  @enderror
+                                              </div>
+                                          </div>
+                                          
                                             <button type="submit" class="btn btn-success me-2">Tambahkan</button>
                                             <button type="button" class="btn btn-danger" onclick="cancel()">Batal</button>
                                             <script>
@@ -85,8 +105,6 @@
                                                 }
                                             </script>
                                         </form>
-                                        
-                                        
                                       </div>
                                     </div>
                                   </div>

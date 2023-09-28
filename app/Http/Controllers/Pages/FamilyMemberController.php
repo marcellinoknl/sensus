@@ -115,9 +115,15 @@ class FamilyMemberController extends Controller
 
     public function destroy($id)
     {
-        $familyMember = member_of_family::findOrFail($id);
-        $familyMember->delete();
+        $familyMember = member_of_family::find($id);
 
-        return redirect()->route('familymember.index')->with('success', 'Family member deleted successfully');
+        if ($familyMember) {
+            $familyMember->delete();
+            return redirect()->route('familymember.index')->with('success', 'Member deleted successfully.');
+        }
+
+        return redirect()->route('familymember.index')->with('success', 'Member deleted successfully.');
     }
+
+
 }

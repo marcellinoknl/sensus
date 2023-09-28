@@ -61,10 +61,16 @@
                                                             Nama Desa
                                                         </th>
                                                         <th>
-                                                            NIK Keluarga
+                                                            No KK
                                                         </th>
                                                         <th>
                                                           Nama Keluarga
+                                                        </th>
+                                                        <th>
+                                                          Pendapatan
+                                                        </th>
+                                                        <th>
+                                                          Pengeluaran
                                                         </th>
                                                         <th>Kuesioner</th>
                                                         <th>
@@ -79,7 +85,7 @@
                                                               {{ $loop->iteration }}
                                                           </td>
                                                           <td>
-                                                              {{ $head_of_family->census ? $head_of_family->census->census_name : 'N/A' }}
+                                                            {{ $head_of_family->census ? $head_of_family->census->census_name : 'N/A' }}
                                                           </td>
                                                           <td>
                                                               {{ $head_of_family->village ? $head_of_family->village->village_name : 'N/A' }}
@@ -91,13 +97,23 @@
                                                             {{ $head_of_family->nama_keluarga }}
                                                           </td>
                                                           <td>
+                                                            {{ $head_of_family->pendapatan }}
+                                                          </td>
+                                                          <td>
+                                                            {{ $head_of_family->pengeluaran }}
+                                                          </td>
+                                                          <td>
                                                             @if($head_of_family->status_sensus == 0)
-                                                                <a href="{{ route('kuesioner.index', ['headfamily' => $head_of_family->id]) }}" class="button census-button btn-success">
-                                                                    Isi census
-                                                                </a>
+                                                                  <button class="button btn-primary" onclick="window.location.href = '{{  route('kuesioner.index', ['headfamily' => $head_of_family->id]) }}'">
+ 
+                                                                  Isi Sensus
+                                                                  </button>
                                                             @else
-                                                            <span>Sensus telah di isi. <a href="{{ route('kuesioner.detail', ['headfamily' => $head_of_family->id]) }}">lihat</a></span>
-                                                            @endif
+                                                              <button class="button btn-primary" onclick="window.location.href = '{{  route('kuesioner.detail', ['headfamily' => $head_of_family->id])}}'">
+
+                                                              Detail
+                                                              </button>                                                            
+                                                          @endif
                                                         </td>
                                                         
                                                           <td style="display: flex;">
@@ -107,13 +123,13 @@
                                                             </button>
                                                         
                                                             <!-- Delete button (No confirmation) -->
-                                                            <form action="{{ route('headfamily.destroy', $head_of_family->id) }}" method="POST">
+                                                            {{-- <form action="{{ route('headfamily.destroy', $head_of_family->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="button delete-button">
                                                                     <i class="fas fa-trash-alt"></i>
                                                                 </button>
-                                                            </form>
+                                                            </form> --}}
                                                         </td>
                                                         
                                                       </tr>

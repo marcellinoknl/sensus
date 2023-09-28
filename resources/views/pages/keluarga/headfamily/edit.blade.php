@@ -83,6 +83,25 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                                <div class="form-group row">
+                                                  <label for="pendapatan" class="col-sm-3 col-form-label">Pendapatan</label>
+                                                  <div class="col-sm-9">
+                                                      <input type="text" class="form-control" id="pendapatan" name="pendapatan" placeholder="Pendapatan" value="{{ $head_of_family->pendapatan }}">
+                                                      @error('pendapatan')
+                                                          <div class="text-danger">{{ $message }}</div>
+                                                      @enderror
+                                                  </div>
+                                              </div>
+                                              
+                                              <div class="form-group row">
+                                                  <label for="pengeluaran" class="col-sm-3 col-form-label">Pengeluaran</label>
+                                                  <div class="col-sm-9">
+                                                      <input type="text" class="form-control" id="pengeluaran" name="pengeluaran" placeholder="Pengeluaran" value="{{ $head_of_family->pengeluaran }}">
+                                                      @error('pengeluaran')
+                                                          <div class="text-danger">{{ $message }}</div>
+                                                      @enderror
+                                                  </div>
+                                              </div>                                              
                                                 <button type="submit" class="btn btn-success me-2">Ubah</button>
                                                 <button type="button" class="btn btn-danger" onclick="cancel()">Batal</button>
                                                 <script>

@@ -25,7 +25,11 @@
                                     <div class="col-lg-12 grid-margin stretch-card">
                                         <div class="card">
                                             <div class="card-body">
+                                              <div class="d-flex justify-content-between align-items-center">
                                                 <h4 class="card-title">Lihat Detail Sensus Keluarga {{ $head_of_family->nama_keluarga }}</h4>
+                                                <!-- Link to edit questionnaire answers -->
+                                                <a href="{{ route('edit.answers', ['headfamily' => $head_of_family->id]) }}" class="btn btn-primary">Edit Jawaban Kuesioner</a>
+                                                </div>
                                                 <p class="card-description">Data Master > Lihat Detail Sensus</p>
                                                 <div class="row">
                                                     <!-- Column for Head of Family and Related Data -->
@@ -41,7 +45,9 @@
                                                         <!-- Access related village data -->
                                                         <p><strong>3. Nama Desa:</strong> {{ $head_of_family->village->village_name }}</p>
                                                         <p><strong>4. Alamat Desa:</strong> {{ $head_of_family->village->address }}</p>
-                                        
+                                                        <p><strong>5. Pendapatan:</strong>{{$head_of_family->pendapatan}}</p>
+                                                        <p><strong>6. Pengeluaran:</strong>{{$head_of_family->pengeluaran}}</p>
+                                                        <br>
                                                         <!-- Check if there are family members -->
                                                         @if ($head_of_family->member_of_family->isEmpty())
                                                             <p style="color: red; font-weight: bold">Anggota Keluarga Belum ditambahkan. <br> tambahkan <a href="/familymember">disini</a></p>
@@ -55,7 +61,10 @@
                                                                 <p><strong>Status dalam Keluarga:</strong> {{ $family_member->relationship_status_in_the_family }}</p>
                                                             @endforeach
                                                         @endif
+
+                                                        
                                                     </div>
+                                                    
                                                     
                                                     <!-- Column for Sensus Questions and Responses -->
                                                     <div class="col-md-6">
@@ -63,8 +72,7 @@
                                                         @if(count($questions_and_answers) > 0)
                                                             <div style="font-weight: bold; color:red">Respon Pertanyaan Sensus :</div> 
                                                             @foreach($questions_and_answers as $qa)
-                                                                <p><strong>Pertanyaan {{ $loop->iteration }}:</strong> {{ $qa->question }}</p>
-                                                                <p><strong>Jawaban {{ $loop->iteration }}:</strong> {{ $qa->answer }}</p>
+                                                                <p><strong>{{ $qa->question }}</strong> &nbsp; : {{ $qa->answer }}</p>
                                                             @endforeach
                                                         @else
                                                             <!-- Message to display if the head of the family has not filled out any questions -->
@@ -74,7 +82,6 @@
                                                 </div> <!-- End of Row -->
                                             </div>
                                         </div>
-                                        
                                     </div>
                                 </div>
                               </div>                            

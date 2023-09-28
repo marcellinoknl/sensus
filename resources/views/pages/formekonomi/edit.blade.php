@@ -50,72 +50,71 @@
                                                   </select>
                                               </div>
                                           </div>
-                                          <div class="form-group row">
-                                            <label for="options" class="col-sm-3 col-form-label">Opsi</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="options" name="options[]" placeholder="Masukkan Opsi">
-                                                <div id="options-container">
-                                                    <!-- Render existing options here -->
-                                                    @if ($question->input_type === 'dropdown')
-                                                        @foreach (json_decode($question->options) as $option)
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" name="options[]" value="{{ $option }}" placeholder="Masukkan Opsi">
-                                                                <button type="button" class="btn btn-danger" onclick="removeOption(this)">Hapus Opsi</button>
-                                                            </div>
-                                                        @endforeach
-                                                    @endif
-                                                </div>
-                                                <button type="button" class="btn btn-primary mt-2" id="add-option">Tambahkan Opsi</button>
-                                            </div>
-                                        </div>                                        
+                                          <div class="form-group row" id="options-container">
+                                              <label for="options" class="col-sm-3 col-form-label">Opsi</label>
+                                              <div class="col-sm-9">
+                                                  <!-- Render existing options here -->
+                                                  @if ($question->input_type === 'dropdown')
+                                                      @foreach (json_decode($question->options) as $option)
+                                                          <div class="input-group mb-2">
+                                                              <input type="text" class="form-control" name="options[]" value="{{ $option }}" placeholder="Masukkan Opsi">
+                                                              <button type="button" class="btn btn-danger" onclick="removeOption(this)">Hapus Opsi</button>
+                                                          </div>
+                                                      @endforeach
+                                                  @endif
+                                                  <button type="button" class="btn btn-primary" id="add-option">Tambahkan Opsi</button>
+                                              </div>
+                                          </div>
                                           <button type="submit" class="btn btn-success me-2">Ubah</button>
                                           <button type="button" class="btn btn-danger" onclick="cancel()">Batal</button>
-                                          <script>
-                                              document.addEventListener('DOMContentLoaded', function() {
+                                      </form>
+                                      
+                                      <script>
+                                          document.addEventListener('DOMContentLoaded', function() {
                                               const addOptionButton = document.getElementById('add-option');
                                               const optionsContainer = document.getElementById('options-container');
                                               const inputTypeSelect = document.getElementById('input_type');
-
+                                      
                                               // Handle initial state based on the input type
                                               toggleOptionsVisibility(inputTypeSelect.value);
-
+                                      
                                               addOptionButton.addEventListener('click', function() {
                                                   const newOptionInput = document.createElement('div');
-                                                  newOptionInput.className = 'input-group';
+                                                  newOptionInput.className = 'input-group mb-2';
                                                   newOptionInput.innerHTML = `
                                                       <input type="text" class="form-control" name="options[]" placeholder="Masukkan Opsi">
                                                       <button type="button" class="btn btn-danger" onclick="removeOption(this)">Hapus Opsi</button>
                                                   `;
-
+                                      
                                                   optionsContainer.appendChild(newOptionInput);
                                               });
-
+                                      
                                               inputTypeSelect.addEventListener('change', function() {
                                                   toggleOptionsVisibility(this.value);
                                               });
                                           });
-
+                                      
                                           function toggleOptionsVisibility(inputType) {
                                               const optionsContainer = document.getElementById('options-container');
-
+                                      
                                               if (inputType === 'dropdown') {
                                                   optionsContainer.style.display = 'block';
                                               } else {
                                                   optionsContainer.style.display = 'none';
                                               }
                                           }
-
+                                      
                                           function removeOption(button) {
                                               const optionInput = button.previousElementSibling;
                                               const optionInputGroup = button.parentElement;
                                               optionInputGroup.remove();
                                           }
-
+                                      
                                           function cancel() {
                                               window.location.href = "{{ route('pertanyaan.index') }}";
                                           }
-
-                                          </script>
+                                      </script>
+                                      
                                       </form>                                      
                                       </div>
                                     </div>

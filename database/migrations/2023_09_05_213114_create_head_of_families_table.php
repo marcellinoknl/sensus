@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('head_of_families', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('census_id')->unsigned();
-            $table->foreign('census_id')->references('id')->on('censuses');
+            $table->foreign('census_id')->references('id')->on('jadwals');
             $table->bigInteger('village_id')->unsigned();
             $table->foreign('village_id')->references('id')->on('villages');
             $table->string('number_of_family_card')->unique();
             $table->string('nama_keluarga');
+            //make pendapatan dan pengeluaran
+            $table->integer('pendapatan');
+            $table->integer('pengeluaran');
             //status sensus
             $table->boolean('status_sensus')->default(0);
             $table->timestamps();

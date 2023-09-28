@@ -89,15 +89,6 @@
                                                             <button class="button edit-button" onclick="window.location.href = '{{ route('villages.edit', ['village' => $village->id]) }}'">
                                                                 <i class="fas fa-edit"></i>
                                                             </button>
-                                                        
-                                                            <!-- Delete button (No confirmation) -->
-                                                            <form action="{{ route('villages.destroy', $village->id) }}" method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="button delete-button">
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                </button>
-                                                            </form>
                                                         </td>
                                                         
                                                       </tr>

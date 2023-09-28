@@ -41,15 +41,18 @@
                                               </div>
                                           </div>
                                           <div class="form-group row">
-                                              <label for="input_type" class="col-sm-3 col-form-label">Tipe Input</label>
-                                              <div class="col-sm-9">
-                                                  <select class="form-control" id="input_type" name="input_type">
-                                                      <option value="" disabled selected>Pilih Jenis Inputan</option>
-                                                      <option value="isian">Isian</option>
-                                                      <option value="dropdown">Dropdown</option>
-                                                  </select>
-                                              </div>
-                                          </div>
+                                            <label for="input_type" class="col-sm-3 col-form-label">Tipe Input</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" id="input_type" name="input_type">
+                                                    <option value="" disabled selected>Pilih Jenis Inputan</option>
+                                                    <option value="isian">Isian</option>
+                                                    <option value="dropdown">Dropdown</option>
+                                                </select>
+                                                @error('input_type')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                           <div class="form-group row" id="opsi-group" style="display: none;">
                                               <label for="options" class="col-sm-3 col-form-label">Opsi</label>
                                               <div class="col-sm-9">

@@ -18,11 +18,13 @@ class head_of_family extends Model
         'village_id',
         'number_of_family_card',
         'nama_keluarga',
+        'pendapatan',
+        'pengeluaran',
     ];
 
     public function census()
     {
-        return $this->belongsTo(census::class);
+        return $this->belongsTo(jadwal::class);
     }
     //make relation with village
     public function village()

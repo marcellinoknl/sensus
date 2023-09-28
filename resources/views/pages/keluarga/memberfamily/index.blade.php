@@ -91,16 +91,45 @@
                                                                 <button type="submit" class="button edit-button">
                                                                     <i class="fas fa-edit"></i>
                                                                 </button>
-                                                            </form>                                                            
-                                        
-                                                                <!-- Delete button (No confirmation) -->
-                                                                <form action="{{ route('familymember.destroy', ['familymember' => $familyMember->id]) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="button delete-button">
-                                                                        <i class="fas fa-trash-alt"></i>
+                                                            </form>   
+                                                            <button type="button" class="button delete-button" data-toggle="modal" data-target="#deleteConfirmationModal" data-action="{{ route('familymember.destroy', ['familymember' => $familyMember->id]) }}">
+                                                              <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                            
+                                                            <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                                                              <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                  <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Konfirmasi Menghapus Anggota Keluarga</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                      <span aria-hidden="true">&times;</span>
                                                                     </button>
-                                                                </form>
+                                                                  </div>
+                                                                  <div class="modal-body">
+                                                                    Apakah Anda yakin untuk menghapus data ini?
+                                                                  </div>
+                                                                  <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" style="width: 100px;" data-dismiss="modal">Batal</button>
+                                                                    <form id="deleteForm" action="{{ route('familymember.destroy', ['familymember' => $familyMember->id]) }}" method="POST">
+                                                                      @csrf
+                                                                      @method('DELETE')
+                                                                      <button type="submit" class="btn btn-danger" style="width: 100px;">Hapus</button>
+                                                                    </form>                                                                    
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            
+                                                            <script>
+                                                              $(document).ready(function () {
+                                                                $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
+                                                                  var button = $(event.relatedTarget);
+                                                                  var action = button.data('action');
+                                                                  var form = $('#deleteForm');
+                                                                  form.attr('action', action);
+                                                                });
+                                                              });
+                                                            </script>                                                                                                 
                                                             </td>
                                                         </tr>
                                                         @endforeach

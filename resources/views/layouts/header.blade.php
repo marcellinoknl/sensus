@@ -23,11 +23,14 @@
   <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css')}}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('images/favicon.png')}}" />
-    <!-- SweetAlert 2 CSS -->
-    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- SweetAlert 2 JavaScript -->
-    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 
 </head>
 <body>

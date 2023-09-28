@@ -7,7 +7,7 @@
       </div>
       <div>
         <a class="navbar-brand brand-logo" href="/dashboard">
-          <img src="{{asset('images/census.png')}}" alt="logo" />
+          <img src="{{asset('images/census.png')}}" alt="logo" style="width: 40px" />
         </a>
         <a class="navbar-brand brand-logo-mini" href="/dashboard">
           <img src="images/logo-mini.svg" alt="logo" />

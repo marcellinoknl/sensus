@@ -47,7 +47,7 @@ Route::get('/villages/edit/{village}', [DesaController::class, 'edit'])->name('v
 Route::put('/villages/update/{village}', [DesaController::class, 'update'])->name('villages.update')->middleware('auth');
 
 // Route to delete a village
-Route::delete('/villages/delete/{village}', [DesaController::class, 'destroy'])->name('villages.destroy')->middleware('auth');
+// Route::delete('/villages/delete/{village}', [DesaController::class, 'destroy'])->name('villages.destroy')->middleware('auth');
 
 //Schedule
 //Schedule route
@@ -90,6 +90,9 @@ Route::delete('/pertanyaan/delete/{pertanyaan}', [App\Http\Controllers\Pages\Per
 //route to kuesioner use id head of family
 Route::get('/kuesioner/{headfamily}', [App\Http\Controllers\Pages\PertanyaanController::class, 'kuesioner'])->name('kuesioner.index')->middleware('auth');
 Route::post('/store-answers', [App\Http\Controllers\Pages\PertanyaanController::class, 'storeAnswer'])->name('store.answers');
+Route::get('/edit-answers/{headfamily}', [App\Http\Controllers\Pages\PertanyaanController::class, 'editAnswer'])->name('edit.answers');
+Route::put('/update-answers', [App\Http\Controllers\Pages\PertanyaanController::class, 'updateAnswer'])->name('update.answers');
+
 
 //route detail kuesioner
 Route::get('/sensus/detail/{headfamily}', [App\Http\Controllers\Pages\HeadFamilyController::class, 'detail'])->name('kuesioner.detail')->middleware('auth');

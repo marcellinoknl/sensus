@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
-use App\Models\census;
+use App\Models\jadwal;
 use App\Models\village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,7 +12,7 @@ class ScheduleController extends Controller
 {
     public function index()
     {
-        $schedules = census::all(); // Fetch all villages from the database
+        $schedules = jadwal::all(); // Fetch all villages from the database
         
         return view('pages.schedule.index', compact('schedules'));
     }
@@ -47,7 +47,7 @@ class ScheduleController extends Controller
         $formattedDate = Carbon::parse($scheduleDate)->format('d-m-Y'); 
     
         // If validation passes, create the Village and redirect
-        census::create([
+        jadwal::create([
             'village_id' => $request->input('village_id'),
             'census_name' => $request->input('census_name'),
             'schedule' => $formattedDate,  // Save the formatted date
@@ -61,7 +61,7 @@ class ScheduleController extends Controller
     public function edit($schedules)
     {
         $villages = Village::all();
-        $scheduleData = census::find($schedules); // Retrieve the schedule data
+        $scheduleData = jadwal::find($schedules); // Retrieve the schedule data
 
         if (!$scheduleData) {
             return redirect()->route('schedule')->with('error', 'Schedule not found');
@@ -89,7 +89,7 @@ class ScheduleController extends Controller
         }
     
         // If validation passes, update the village and redirect
-        $scheduleData = census::find($schedules);
+        $scheduleData = jadwal::find($schedules);
         $scheduleData->update([
             'village_id' => $request->input('village_id'),
             'census_name' => $request->input('census_name'),
@@ -103,7 +103,7 @@ class ScheduleController extends Controller
 
     public function destroy($schedules)
     {
-        $scheduleData = census::find($schedules); // Retrieve the village data
+        $scheduleData = jadwal::find($schedules); // Retrieve the village data
         $scheduleData->delete(); // Delete the village data
 
         return redirect()

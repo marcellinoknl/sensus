@@ -64,13 +64,13 @@
                                                               </form>                                                              
                                                           
                                                               <!-- Delete button (No confirmation) -->
-                                                              <form action="{{ route('pertanyaan.destroy', ['pertanyaan' => $question->id]) }}" method="POST">
+                                                              {{-- <form action="{{ route('pertanyaan.destroy', ['pertanyaan' => $question->id]) }}" method="POST">
                                                                   @csrf
                                                                   @method('DELETE')
                                                                   <button type="submit" class="button delete-button">
                                                                       <i class="fas fa-trash-alt"></i>
                                                                   </button>
-                                                              </form>
+                                                              </form> --}}
                                                           </td>                                                          
                                                         </tr>
                                                         @endforeach

@@ -7,6 +7,7 @@ use App\Models\head_of_family;
 use App\Models\question;
 use App\Models\question_headfamily;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PertanyaanController extends Controller
 {
@@ -145,10 +146,66 @@ class PertanyaanController extends Controller
 
     }
 
-    return redirect()->route('pertanyaan.index')->with('success', 'Jawaban berhasil disimpan');
+    return redirect()->route('headfamily')->with('success', 'Jawaban berhasil disimpan');
 }
-    
-    
 
+    public function editAnswer($headfamily)
+    {
+        try {
+            $question = question::all();
+            $familyName = head_of_family::findOrFail($headfamily);
+            $answers = question_headfamily::where('head_of_family_id', $headfamily)->get();
+
+            // Pass $familyName to the view
+            return view('pages.kuesioner.edit', compact('question', 'familyName', 'answers'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return abort(404);
+        }
+    }
+
+
+    public function updateAnswer(Request $request)
+    {
+        $request->validate([
+            'headfamily' => 'required|exists:head_of_families,id',
+            'answers' => 'required|array',
+        ]);
+    
+        $headfamilyId = $request->input('headfamily');
+        $answers = $request->input('answers');
+    
+        // Check if 'answers' is null or not an array
+        if ($answers === null || !is_array($answers)) {
+            return back()->with('error', 'Invalid or missing answers data.');
+        }
+    
+        foreach ($answers as $questionId => $answer) {
+            $question_headfamily = question_headfamily::where('head_of_family_id', $headfamilyId)
+                ->where('question_id', $questionId)
+                ->first();
+            if ($question_headfamily) {
+                $question_headfamily->answer = $answer;
+                $question_headfamily->save();
+            }
+        }
+    
+        // Retrieve the head of family again after updating answers
+        $head_of_family = head_of_family::findOrFail($headfamilyId);
+    
+        // Retrieve the questions and answers related to this head_of_family
+        $questions_and_answers = DB::table('question_headfamilies')
+            ->where('question_headfamilies.head_of_family_id', $headfamilyId)
+            ->join('questions', 'question_headfamilies.question_id', '=', 'questions.id')
+            ->select('questions.question', 'question_headfamilies.answer')
+            ->get();
+    
+        // Initialize $questions_and_answers as an empty array if it's null
+        $questions_and_answers = $questions_and_answers ?? [];
+    
+        return view('pages.kuesioner.detail', compact('head_of_family', 'questions_and_answers'))
+            ->with('success', 'Jawaban sensus berhasil diubah');
+    }
+    
+      
     
 }
