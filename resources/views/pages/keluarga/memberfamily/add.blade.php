@@ -122,9 +122,8 @@
                                                 <div class="col-sm-5">
                                                     <select class="form-control" id="gender" name="gender">
                                                         <option disabled selected value="">Pilih Jenis Kelamin</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                        <option value="Other">Other</option>
+                                                        <option value="Laki-Laki">Laki-Laki</option>
+                                                        <option value="Perempuan">Perempuan</option>
                                                     </select>
                                                     @error('gender')
                                                         <div class="text-danger">{{ $message }}</div>

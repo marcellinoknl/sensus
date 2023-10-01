@@ -32,18 +32,18 @@
                                         <form method="POST" action="{{ route('villages.store') }}" class="forms-sample">
                                             @csrf <!-- Add the CSRF token -->
                                             <div class="form-group row">
-                                                <label for="village_name" class="col-sm-3 col-form-label">Village Name</label>
+                                                <label for="village_name" class="col-sm-3 col-form-label">Nama Desa</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="village_name" name="village_name" placeholder="Village Name">
+                                                    <input type="text" class="form-control" id="village_name" name="village_name" placeholder="Masukkan Nama Desa">
                                                     @error('village_name')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="address" class="col-sm-3 col-form-label">Address</label>
+                                                <label for="address" class="col-sm-3 col-form-label">Alamat Desa</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                                                    <input type="text" class="form-control" id="address" name="address" placeholder="Masukkan Alamat Desa">
                                                     @error('address')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror

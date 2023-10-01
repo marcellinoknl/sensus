@@ -30,24 +30,41 @@
                                                     Data Master > Isi Data Sensus Keluarga
                                                 </p>
                                                 <form method="POST" action="{{ route('store.answers') }}">
-                                                    @csrf
-                                                    <input type="hidden" name="headfamily" value="{{ $familyName->id }}">
-                                                    @foreach($question as $q)
-                                                        <div class="form-group">
-                                                            <label for="question_{{ $q->id }}">{{ $q->question }}</label>
-                                                            @if($q->input_type === 'isian')
-                                                                <input type="text" class="form-control" name="answers[{{ $q->id }}]">
-                                                            @elseif($q->input_type === 'dropdown')
-                                                                <select class="form-control" name="answers[{{ $q->id }}]">
-                                                                    @foreach(json_decode($q->options) as $option)
-                                                                        <option value="{{ $option }}">{{ $option }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            @endif
-                                                        </div>
-                                                    @endforeach
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                </form>
+                                                  @csrf
+                                                  <input type="hidden" name="headfamily" value="{{ $familyName->id }}">
+                                                  
+                                                  @error('headfamily')
+                                                      <div class="alert alert-danger">{{ $message }}</div>
+                                                  @enderror
+                                                  
+                                                  @foreach($question as $q)
+                                                      <div class="form-group">
+                                                          <label for="question_{{ $q->id }}">{{ $q->question }}</label>
+                                                          @if($q->input_type === 'isian')
+                                                              <input type="text" class="form-control @error('answers.' . $q->id) is-invalid @enderror" name="answers[{{ $q->id }}]">
+                                                              @error('answers.' . $q->id)
+                                                                  <span class="invalid-feedback" role="alert">
+                                                                      <strong>{{ $message }}</strong>
+                                                                  </span>
+                                                              @enderror
+                                                          @elseif($q->input_type === 'dropdown')
+                                                              <select class="form-control @error('answers.' . $q->id) is-invalid @enderror" name="answers[{{ $q->id }}]">
+                                                                <option disabled selected value="">Pilih Opsi</option>
+                                                                  @foreach(json_decode($q->options) as $option)
+                                                                      <option value="{{ $option }}">{{ $option }}</option>
+                                                                  @endforeach
+                                                              </select>
+                                                              @error('answers.' . $q->id)
+                                                                  <span class="invalid-feedback" role="alert">
+                                                                      <strong>{{ $message }}</strong>
+                                                                  </span>
+                                                              @enderror
+                                                          @endif
+                                                      </div>
+                                                  @endforeach
+                                                  
+                                                  <button type="submit" class="btn btn-primary">Kirimkan</button>
+                                              </form>                                              
                                             </div>
                                         </div>
                                     </div>

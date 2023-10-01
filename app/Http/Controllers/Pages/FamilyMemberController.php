@@ -37,7 +37,7 @@ class FamilyMemberController extends Controller
             'etnic' => 'required|string|max:255',
             'citizenship' => 'required|string|max:255',
             'age' => 'required|integer|min:0',
-            'gender' => 'required|in:Male,Female,Other',
+            'gender' => 'required|in:Laki-Laki,Perempuan',
             'religion' => 'required|string|max:255',
             'relationship_status_in_the_family' => 'required|string|max:255',
             'date_of_birth' => 'required|date',

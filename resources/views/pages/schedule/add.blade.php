@@ -34,25 +34,34 @@
                                         <form method="POST" action="{{ route('schedule.store') }}" class="forms-sample">
                                             @csrf <!-- Add the CSRF token -->
                                             <div class="form-group row">
-                                                <label for="village_name" class="col-sm-3 col-form-label">Census Name</label>
+                                                <label for="village_name" class="col-sm-3 col-form-label">Nama Sensus</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="census_name" name="census_name" placeholder="Census Name">
+                                                    <input type="text" class="form-control" id="census_name" name="census_name" placeholder="Nama Sensus">
                                                     @error('census_name')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="schedule" class="col-sm-3 col-form-label">Schedule</label>
+                                                <label for="schedule" class="col-sm-3 col-form-label">Jadwal Mulai</label>
                                                 <div class="col-sm-9">
                                                     <input type="date" class="form-control" id="schedule" name="schedule" style="width: 190px;">
                                                     @error('schedule')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
-                                            </div>                                                                                  
+                                            </div> 
                                             <div class="form-group row">
-                                                <label for="village_id" class="col-sm-3 col-form-label">Desa (Village)</label>
+                                              <label for="schedule_end" class="col-sm-3 col-form-label">Jadwal Selesai</label>
+                                              <div class="col-sm-9">
+                                                  <input type="date" class="form-control" id="schedule_end" name="schedule_end" style="width: 190px;">
+                                                  @error('schedule_end')
+                                                      <div class="text-danger">{{ $message }}</div>
+                                                  @enderror
+                                              </div>
+                                          </div>                                                                              
+                                            <div class="form-group row">
+                                                <label for="village_id" class="col-sm-3 col-form-label">Nama Desa</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" id="village_id" name="village_id">
                                                         <option disabled selected value="">Pilih Desa</option>

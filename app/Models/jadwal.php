@@ -16,6 +16,7 @@ class jadwal extends Model
         'village_id',
         'census_name',
         'schedule',
+        'schedule_end',
     ];
 
     public function head_of_family()

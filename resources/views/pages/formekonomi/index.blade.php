@@ -51,29 +51,28 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @foreach ($questions as $question)
-                                                        <tr>
-                                                            <td class="py-1">{{ $loop->iteration }}</td>
-                                                            <td>{{ $question->question }}</td>
-                                                            <td style="display: flex;">
+                                                      @foreach ($questions as $question)
+                                                      <tr class="{{ $question->status == 1 ? 'bg-danger' : '' }}"> <!-- Added class for non-active question -->
+                                                          <td class="py-1">{{ $loop->iteration }}</td>
+                                                          <td>{{ $question->question }}</td>
+                                                          <td style="display: flex;">
                                                               <!-- Edit button -->
                                                               <form action="{{ route('pertanyaan.edit', ['pertanyaan' => $question->id]) }}" method="get">
                                                                   <button type="submit" class="button edit-button">
                                                                       <i class="fas fa-edit"></i>
                                                                   </button>
-                                                              </form>                                                              
-                                                          
-                                                              <!-- Delete button (No confirmation) -->
-                                                              {{-- <form action="{{ route('pertanyaan.destroy', ['pertanyaan' => $question->id]) }}" method="POST">
+                                                              </form>
+                                                      
+                                                              <!-- Toggle button -->
+                                                              <form action="{{ route('pertanyaan.toggle', ['pertanyaan' => $question->id]) }}" method="POST">
                                                                   @csrf
-                                                                  @method('DELETE')
-                                                                  <button type="submit" class="button delete-button">
-                                                                      <i class="fas fa-trash-alt"></i>
+                                                                  <button type="submit" class="button {{ $question->status == 1 ? 'activate-button' : 'deactivate-button' }}">
+                                                                      <i class="fas {{ $question->status == 1 ? 'fa-check' : 'fa-ban' }}"></i> {{ $question->status == 0 ? 'Nonaktifkan' : 'Aktifkan' }}
                                                                   </button>
-                                                              </form> --}}
+                                                              </form>
                                                           </td>                                                          
-                                                        </tr>
-                                                        @endforeach
+                                                      </tr>
+                                                      @endforeach                                                      
                                                     </tbody>
                                                 </table>
                                             </div>

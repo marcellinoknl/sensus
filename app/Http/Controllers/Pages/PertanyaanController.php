@@ -100,13 +100,23 @@ class PertanyaanController extends Controller
         return redirect()->route('pertanyaan.index')->with('success', 'Pertanyaan berhasil diubah');
     }       
     
-    public function destroy($id)
+    public function toggleStatus($id)
     {
-        $question = question::find($id);
-        $question->delete();
-
-        return redirect()->route('pertanyaan.index')->with('success', 'Pertanyaan berhasil dihapus');
+        $question = Question::find($id);
+        
+        if (!$question) {
+            return redirect()->route('pertanyaan.index')->with('error', 'Pertanyaan not found');
+        }
+    
+        // Toggle the status
+        $question->status = $question->status == 0 ? 1 : 0;
+        $question->save();
+    
+        $message = $question->status == 1 ? 'Pertanyaan has been deactivated' : 'Pertanyaan has been activated';
+    
+        return redirect()->route('pertanyaan.index')->with('success', $message);
     }
+    
 
     //kuesioner find id from head of family to store data to question_headfamilies
     public function kuesioner($headfamily)
@@ -123,31 +133,40 @@ class PertanyaanController extends Controller
         }
     }
     
-    public function storeAnswer(Request $request)
-{
-    $request->validate([
-        'headfamily' => 'required|exists:head_of_families,id',
-        'answers' => 'required|array',
-    ]);
-
-    $headfamilyId = $request->input('headfamily');
-    $answers = $request->input('answers');
-
-    foreach ($answers as $questionId => $answer) {
-        question_headfamily::create([
-            'head_of_family_id' => $headfamilyId,
-            'question_id' => $questionId,
-            'answer' => $answer,
+        public function storeAnswer(Request $request)
+    {
+        $request->validate([
+            'headfamily' => 'required|exists:head_of_families,id',
+            'answers' => 'required|array',
+            'answers.*' => 'required|string|max:255',
         ]);
-    //set status head_of_family to 1
-    $head_of_family = head_of_family::find($headfamilyId);
-    $head_of_family->status_sensus = 1;
-    $head_of_family->save();
 
+        DB::beginTransaction();
+        
+        try {
+            $headfamilyId = $request->input('headfamily');
+            $answers = $request->input('answers');
+
+            foreach ($answers as $questionId => $answer) {
+                question_headfamily::create([
+                    'head_of_family_id' => $headfamilyId,
+                    'question_id' => $questionId,
+                    'answer' => $answer,
+                ]);
+            }
+            
+            $head_of_family = head_of_family::find($headfamilyId);
+            $head_of_family->status_sensus = 1;
+            $head_of_family->save();
+
+            DB::commit();
+            return redirect()->route('headfamily')->with('success', 'Jawaban Berhasil disimpan.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Ada Kesalahan Pada Saat Menyimpan Jawaban. Ulang kembali.');
+        }
     }
-
-    return redirect()->route('headfamily')->with('success', 'Jawaban berhasil disimpan');
-}
 
     public function editAnswer($headfamily)
     {
@@ -189,17 +208,14 @@ class PertanyaanController extends Controller
             }
         }
     
-        // Retrieve the head of family again after updating answers
         $head_of_family = head_of_family::findOrFail($headfamilyId);
     
-        // Retrieve the questions and answers related to this head_of_family
         $questions_and_answers = DB::table('question_headfamilies')
             ->where('question_headfamilies.head_of_family_id', $headfamilyId)
             ->join('questions', 'question_headfamilies.question_id', '=', 'questions.id')
             ->select('questions.question', 'question_headfamilies.answer')
             ->get();
     
-        // Initialize $questions_and_answers as an empty array if it's null
         $questions_and_answers = $questions_and_answers ?? [];
     
         return view('pages.kuesioner.detail', compact('head_of_family', 'questions_and_answers'))

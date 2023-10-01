@@ -33,18 +33,18 @@
                                             @csrf
                                             @method('PUT') <!-- Use the PUT method for editing -->
                                             <div class="form-group row">
-                                                <label for="village_name" class="col-sm-3 col-form-label">Village Name</label>
+                                                <label for="village_name" class="col-sm-3 col-form-label">Nama Desa</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="village_name" name="village_name" placeholder="Village Name" value="{{ $villageData->village_name }}">
+                                                    <input type="text" class="form-control" id="village_name" name="village_name" placeholder="Masukkan Nama Desa" value="{{ $villageData->village_name }}">
                                                     @error('village_name')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="address" class="col-sm-3 col-form-label">Address</label>
+                                                <label for="address" class="col-sm-3 col-form-label">Alamat Desa</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="address" name="address" placeholder="Address" value="{{ $villageData->address }}">
+                                                    <input type="text" class="form-control" id="address" name="address" placeholder="Masukkan Alamat Desa" value="{{ $villageData->address }}">
                                                     @error('address')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror

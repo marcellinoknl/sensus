@@ -131,9 +131,8 @@
                                                     <div class="col-sm-5">
                                                         <select class="form-control" id="gender" name="gender">
                                                             <option disabled value="">Pilih Jenis Kelamin</option>
-                                                            <option value="Male" {{ $familyMember->gender == 'Male' ? 'selected' : '' }}>Male</option>
-                                                            <option value="Female" {{ $familyMember->gender == 'Female' ? 'selected' : '' }}>Female</option>
-                                                            <option value="Other" {{ $familyMember->gender == 'Other' ? 'selected' : '' }}>Other</option>
+                                                            <option value="Laki-Laki" {{ $familyMember->gender == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
+                                                            <option value="Perempuan" {{ $familyMember->gender == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                                                         </select>
                                                         @error('gender')
                                                         <div class="text-danger">{{ $message }}</div>

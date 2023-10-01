@@ -31,7 +31,8 @@ class ScheduleController extends Controller
         $validator = Validator::make($request->all(), [
             'village_id' => 'required|integer',
             'census_name' => 'required|string|max:255',
-            'schedule' => 'required|date',  // changed validation to date
+            'schedule' => 'required|date',
+            'schedule_end' => 'required|date',
         ]);
     
         // Check if validation fails
@@ -44,13 +45,17 @@ class ScheduleController extends Controller
     
         // Parse and format the schedule date
         $scheduleDate = $request->input('schedule');
-        $formattedDate = Carbon::parse($scheduleDate)->format('d-m-Y'); 
-    
+        $formattedDate = Carbon::parse($scheduleDate)->format('Y-m-d'); 
+        //schedule end
+        $scheduleDateEnd = $request->input('schedule_end');
+        $formattedDateEnd = Carbon::parse($scheduleDateEnd)->format('Y-m-d');
+
         // If validation passes, create the Village and redirect
         jadwal::create([
             'village_id' => $request->input('village_id'),
             'census_name' => $request->input('census_name'),
             'schedule' => $formattedDate,  // Save the formatted date
+            'schedule_end' => $formattedDateEnd,
         ]);
     
         return redirect()
@@ -77,7 +82,8 @@ class ScheduleController extends Controller
         $validator = Validator::make($request->all(), [
             'village_id' => 'required|integer',
             'census_name' => 'required|string|max:255',
-            'schedule' => 'required|string|max:255',
+            'schedule' => 'required|date',
+            'schedule_end' => 'required|date',
         ]);
     
         // Check if validation fails
@@ -87,13 +93,22 @@ class ScheduleController extends Controller
                 ->withErrors($validator) // Pass the validation errors to the view
                 ->withInput(); // Preserve the old input data
         }
+
+        // Parse and format the schedule date
+        $scheduleDate = $request->input('schedule');
+        $formattedDate = Carbon::parse($scheduleDate)->format('Y-m-d');
+        //schedule end
+        $scheduleDateEnd = $request->input('schedule_end');
+        $formattedDateEnd = Carbon::parse($scheduleDateEnd)->format('Y-m-d');
     
         // If validation passes, update the village and redirect
         $scheduleData = jadwal::find($schedules);
         $scheduleData->update([
             'village_id' => $request->input('village_id'),
             'census_name' => $request->input('census_name'),
-            'schedule' => $request->input('schedule'),
+            'schedule' => $formattedDate,  // Save the formatted date
+            'schedule_end' => $formattedDateEnd,
+
         ]);
     
         return redirect()
@@ -101,15 +116,27 @@ class ScheduleController extends Controller
             ->with('success', 'Data Schedule Berhasil Diubah');
     }
 
-    public function destroy($schedules)
+    public function toggleActive($schedules)
     {
-        $scheduleData = jadwal::find($schedules); // Retrieve the village data
-        $scheduleData->delete(); // Delete the village data
-
+        $scheduleData = jadwal::find($schedules);
+    
+        if (!$scheduleData) {
+            return redirect()->route('schedule')->with('error', 'Schedule not found');
+        }
+    
+        // Toggle the status between 0 and 1.
+        $scheduleData->status = $scheduleData->status == 0 ? 1 : 0;
+        $scheduleData->save();
+    
+        $message = $scheduleData->status == 1 ? 'Data Schedule Berhasil Dinonaktifkan' : 'Data Schedule Berhasil Diaktifkan';
+    
         return redirect()
-            ->route('schedule') // You can redirect to any other route after successful deletion
-            ->with('success', 'Data Schedule Berhasil Dihapus');
+            ->route('schedule')
+            ->with('success', $message);
     }
+    
+
+    
 
     
 }

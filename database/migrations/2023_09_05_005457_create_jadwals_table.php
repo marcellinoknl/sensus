@@ -16,7 +16,9 @@ return new class extends Migration
             $table->bigInteger('village_id')->unsigned();
             $table->foreign('village_id')->references('id')->on('villages');
             $table->string('census_name');
-            $table->string('schedule');
+            $table->date('schedule');
+            $table->date('schedule_end');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

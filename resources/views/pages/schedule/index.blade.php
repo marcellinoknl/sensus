@@ -60,11 +60,13 @@
                                                             Nama Sensus
                                                         </th>
                                                         <th>
-                                                            Jadwal Sensus
+                                                          Nama Desa
+                                                      </th>
+                                                        <th>
+                                                            Jadwal Mulai
                                                         </th>
                                                         <th>
-                                                            Nama Desa
-                                                        </th>
+                                                            Jadwal Selesai
                                                         <th>
                                                             Aksi
                                                         </th>
@@ -72,35 +74,42 @@
                                                 </thead>
                                                 <tbody>
                                                   @foreach ($schedules as $schedule)
-                                                      <tr>
-                                                          <td class="py-1">
+                                                  <style>
+                                                    tr.nonactive {
+                                                    background-color: yellow;
+                                                    }
+                                                  </style>
+                                                      <tr class="{{ $schedule->status == 1 ? 'bg-danger' : '' }}"> <!-- Added class for non-active question -->
+                                                        <td class="py-1">
                                                               {{ $loop->iteration }}
                                                           </td>
                                                           <td>
                                                               {{ $schedule->census_name }}
                                                           </td>
                                                           <td>
+                                                            {{ $schedule->village ? $schedule->village->village_name : 'N/A' }}
+                                                          </td>
+                                                          <td>
                                                               {{ $schedule->schedule }}
                                                           </td>
                                                           <td>
-                                                            {{ $schedule->village ? $schedule->village->village_name : 'N/A' }}
+                                                            {{ $schedule->schedule_end }}
                                                           </td>
                                                           <td style="display: flex;">
                                                             <!-- Edit button -->
                                                             <button class="button edit-button" onclick="window.location.href = '{{ route('schedule.edit', ['census' => $schedule->id]) }}'">
-                                                              <i class="fas fa-edit"></i>
+                                                                <i class="fas fa-edit"></i>
                                                             </button>
                                                         
-                                                            <!-- Delete button (No confirmation) -->
-                                                            <form action="{{ route('schedule.destroy', $schedule->id) }}" method="POST">
+                                                            <!-- Toggle Activation button -->
+                                                            <form action="{{ route('schedule.toggle', $schedule->id) }}" method="POST">
                                                                 @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="button delete-button">
-                                                                    <i class="fas fa-trash-alt"></i>
+                                                                <button type="submit" class="button {{ $schedule->status == 0 ? 'deactivate-button' : 'activate-button' }}">
+                                                                    <i class="fas {{ $schedule->status == 0 ? 'fa-ban' : 'fa-check' }}"></i> {{ $schedule->status == 0 ? 'Nonaktifkan' : 'Aktifkan' }}
                                                                 </button>
                                                             </form>
                                                         </td>
-                                                        
+                                                                                                               
                                                       </tr>
                                                   @endforeach
                                               </tbody>

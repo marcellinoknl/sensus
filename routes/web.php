@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\DashboardController;
 use App\Http\Controllers\Pages\DesaController;
+//chart
+use App\Http\Controllers\ChartController;
 
 
 /*
@@ -56,7 +58,7 @@ Route::get('/schedule/add', [App\Http\Controllers\Pages\ScheduleController::clas
 Route::post('/schedule/store', [App\Http\Controllers\Pages\ScheduleController::class, 'store'])->name('schedule.store')->middleware('auth');
 Route::get('/schedule/edit/{census}', [App\Http\Controllers\Pages\ScheduleController::class, 'edit'])->name('schedule.edit')->middleware('auth');
 Route::put('/schedule/update/{census}', [App\Http\Controllers\Pages\ScheduleController::class, 'update'])->name('schedule.update')->middleware('auth');
-Route::delete('/schedule/delete/{census}', [App\Http\Controllers\Pages\ScheduleController::class, 'destroy'])->name('schedule.destroy')->middleware('auth');
+Route::post('/schedule/toggle/{schedule}', [App\Http\Controllers\Pages\ScheduleController::class, 'toggleActive'])->name('schedule.toggle')->middleware('auth');
 
 //head family
 //head family route
@@ -83,7 +85,7 @@ Route::get('/pertanyaan/add', [App\Http\Controllers\Pages\PertanyaanController::
 Route::post('/pertanyaan/store', [App\Http\Controllers\Pages\PertanyaanController::class, 'store'])->name('pertanyaan.store')->middleware('auth');
 Route::get('/pertanyaan/edit/{pertanyaan}', [App\Http\Controllers\Pages\PertanyaanController::class, 'edit'])->name('pertanyaan.edit')->middleware('auth');
 Route::put('/pertanyaan/update/{pertanyaan}', [App\Http\Controllers\Pages\PertanyaanController::class, 'update'])->name('pertanyaan.update')->middleware('auth');
-Route::delete('/pertanyaan/delete/{pertanyaan}', [App\Http\Controllers\Pages\PertanyaanController::class, 'destroy'])->name('pertanyaan.destroy')->middleware('auth');
+Route::post('/pertanyaan/toggle/{pertanyaan}', [App\Http\Controllers\Pages\PertanyaanController::class, 'toggleStatus'])->name('pertanyaan.toggle')->middleware('auth');
 
 //kuesioner per head of family
 //kuesioner per head of family route

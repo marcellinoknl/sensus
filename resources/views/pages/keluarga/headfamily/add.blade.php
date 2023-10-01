@@ -29,27 +29,38 @@
                                         <p class="card-description">
                                           Data Master > Kelola Nama Keluarga > Tambah Nama Keluarga
                                         </p>
+                                        @php
+                                            $needsChecking = collect($censuses)->contains('status', 1);
+                                        @endphp
+
+                                        @if($needsChecking)
+                                            <div class="alert alert-warning" role="alert">
+                                                Warning: Anda belum mengisi nama sensus. Silakan isi nama sensus terlebih dahulu.
+                                            </div>
+                                        @endif
                                         <form method="POST" action="{{ route('headfamily.store') }}" class="forms-sample">
                                             @csrf <!-- Add the CSRF token -->
                                             <div class="form-group row">
-                                                <label for="census_id" class="col-sm-3 col-form-label">Census Name</label>
+                                                <label for="census_id" class="col-sm-3 col-form-label">Nama Sensus</label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" id="census_id" name="census_id">
-                                                        <option disabled selected value="">Select Census Name</option>
-                                                        @foreach ($censuses as $census)
+                                                  <select class="form-control" id="census_id" name="census_id">
+                                                    <option disabled selected value="">Pilih Sensus</option>
+                                                    @foreach ($censuses as $census)
+                                                        @if($census->status == 0)
                                                             <option value="{{ $census->id }}">{{ $census->census_name }}</option>
-                                                        @endforeach
-                                                    </select>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
                                                     @error('census_id')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="village_id" class="col-sm-3 col-form-label">Village Name</label>
+                                                <label for="village_id" class="col-sm-3 col-form-label">Nama Desa</label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" id="village_id" name="village_id">
-                                                        <option disabled selected value="">Select Village Name</option>
+                                                        <option disabled selected value="">Pilih Nama Desa</option>
                                                         @foreach ($villages as $village)
                                                             <option value="{{ $village->id }}">{{ $village->village_name }}</option>
                                                         @endforeach
@@ -60,9 +71,9 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="number_of_family_card" class="col-sm-3 col-form-label">NIK KK</label>
+                                                <label for="number_of_family_card" class="col-sm-3 col-form-label">No KK</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" id="number_of_family_card" name="number_of_family_card" placeholder="Number of Family Card">
+                                                    <input type="text" class="form-control" id="number_of_family_card" name="number_of_family_card" placeholder="Nomor Kartu Keluarga">
                                                     @error('number_of_family_card')
                                                         <div class="text-danger">{{ $message }}</div>
                                                     @enderror

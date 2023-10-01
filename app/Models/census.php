@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class census extends Model
 {
     use HasFactory;
-    protected $table = 'censuses';
+    protected $table = 'jadwals';
     protected $primaryKey = 'id';
 
     //fillable as migration
@@ -16,6 +16,7 @@ class census extends Model
         'village_id',
         'census_name',
         'schedule',
+        'schedule_end',
     ];
 
     public function head_of_family()
