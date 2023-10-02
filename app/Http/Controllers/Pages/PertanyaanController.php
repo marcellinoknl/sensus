@@ -122,7 +122,8 @@ class PertanyaanController extends Controller
     public function kuesioner($headfamily)
     {
         try {
-            $question = question::all();
+            //get question where status == 0
+            $question = question::where('status', 0)->get();
             $familyName = head_of_family::findOrFail($headfamily); // Retrieve the specific head_of_family record
             return view('pages.kuesioner.add', compact('question', 'familyName'));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
