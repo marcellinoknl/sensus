@@ -26,6 +26,4 @@ class village extends Model
     {
         return $this->hasMany(census::class);
     }
-
-
 }
