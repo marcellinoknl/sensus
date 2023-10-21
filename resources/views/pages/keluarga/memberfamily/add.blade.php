@@ -182,6 +182,7 @@
                                                     <option disabled selected value="">Pilih Status Pernikahan</option>
                                                       <option value="Sudah Menikah">Sudah Menikah</option>
                                                       <option value="Belum Menikah">Belum Menikah</option>
+                                                      <option value="Cerai Mati">Cerai Mati</option>
                                                   </select>
                                                   @error('marital_status')
                                                       <div class="text-danger">{{ $message }}</div>

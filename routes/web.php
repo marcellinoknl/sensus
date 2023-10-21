@@ -77,6 +77,8 @@ Route::post('/familymember/store', [App\Http\Controllers\Pages\FamilyMemberContr
 Route::get('/familymember/edit/{familymember}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'edit'])->name('familymember.edit')->middleware('auth');
 Route::put('/familymember/update/{familymember}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'update'])->name('familymember.update')->middleware('auth');
 Route::delete('/familymember/delete/{familymember}', [App\Http\Controllers\Pages\FamilyMemberController::class, 'destroy'])->name('familymember.destroy')->middleware('auth');
+Route::post('/familymembers/import', [App\Http\Controllers\Pages\FamilyMemberController::class, 'import'])->name('familymember.import');
+
 
 //pertanyaan
 //pertanyaan route

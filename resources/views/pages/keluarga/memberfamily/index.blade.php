@@ -40,6 +40,12 @@
                                                 <button type="button" class="button add-button" onclick="window.location.href = '{{ route('familymember.add') }}'">
                                                     <i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah Anggota Keluarga
                                                 </button>
+                                                <form action="{{ route('familymember.import') }}" method="POST" enctype="multipart/form-data">
+                                                  @csrf
+                                                  <input type="file" name="file">
+                                                  <button type="submit">Import</button>
+                                              </form>                                              
+                                              
                                             </div>
                                             <div class="table-responsive">
                                                 <table class="table table-striped">

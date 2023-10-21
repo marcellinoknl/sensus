@@ -197,6 +197,7 @@
                                                             <option disabled value="">Pilih Status Pernikahan</option>
                                                             <option value="Sudah Menikah" {{ $familyMember->marital_status == 'Sudah Menikah' ? 'selected' : '' }}>Sudah Menikah</option>
                                                             <option value="Belum Menikah" {{ $familyMember->marital_status == 'Belum Menikah' ? 'selected' : '' }}>Belum Menikah</option>
+                                                            <option value="Cerai Mati" {{ $familyMember->marital_status == 'Cerai Mati' ? 'selected' : '' }}>Cerai Mati</option>
                                                         </select>
                                                         @error('marital_status')
                                                         <div class="text-danger">{{ $message }}</div>

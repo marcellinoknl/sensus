@@ -13,23 +13,23 @@ return new class extends Migration
     {
         Schema::create('member_of_families', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('head_of_family_id');
+            $table->unsignedBigInteger('head_of_family_id')->nullable();
             $table->foreign('head_of_family_id')->references('id')->on('head_of_families');
             $table->string('NIK')->unique();
-            $table->string('address');
-            $table->string('full_name');
-            $table->string('last_education');
-            $table->string('type_of_work');
-            $table->string('etnic');
-            $table->string('citizenship');
-            $table->integer('age');
-            $table->string('gender');
-            $table->string('religion');
-            $table->string('relationship_status_in_the_family');
-            $table->date('date_of_birth');
-            $table->string('place_of_birth');
-            $table->string('phone_number');
-            $table->string('marital_status');
+            $table->string('address')->nullable();
+            $table->string('full_name')->nullable();
+            $table->string('last_education')->nullable();
+            $table->string('type_of_work')->nullable();
+            $table->string('etnic')->nullable();
+            $table->string('citizenship')->nullable();
+            $table->integer('age')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('religion')->nullable();
+            $table->string('relationship_status_in_the_family')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('place_of_birth')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('marital_status')->nullable();
             $table->timestamps();
         });
     }

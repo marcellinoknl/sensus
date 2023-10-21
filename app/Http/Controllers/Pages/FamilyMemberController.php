@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\head_of_family;
 use App\Models\member_of_family;
 use Illuminate\Http\Request;
+use App\Imports\FamilyMemberImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FamilyMemberController extends Controller
 {
@@ -124,6 +126,20 @@ class FamilyMemberController extends Controller
 
         return redirect()->route('familymember.index')->with('success', 'Member deleted successfully.');
     }
+
+    public function import(Request $request)
+{
+    $request->validate([
+        'file' => 'required|mimes:xls,xlsx,csv',
+    ]);
+
+    $file = $request->file('file');
+
+    Excel::import(new FamilyMemberImport, $file);
+
+    return redirect()->route('familymember.index')
+        ->with('success', 'Data imported successfully.');
+}
 
 
 }
